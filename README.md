@@ -1,12 +1,12 @@
 # OOYellowProject
 
-## The project is to create a National ID System using Object-Oriented Programmin in Python Programming Language. ##
+## The project is to create a National ID System using Object-Oriented Programming in Python Programming Language. ##
 
 https://trello.com/b/L9hJSpaU/oo1lxyellow
 
 ### Contributors: ###
-* Dominic Edward Ty
 * Francis Tale
+* Dominic Edward Ty
 
 ### Features: ###
 * The program will have its own database for storing datas of individuals.
