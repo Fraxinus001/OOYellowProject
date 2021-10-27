@@ -1,0 +1,23 @@
+@startuml
+skinparam actorStyle awesome
+title "National ID System"
+:Citizen: -left-> (Use1)
+:Citizen: -right-> (Use2)
+:Citizen: -down-> (Use3)
+:Citizen: -up-> (Use4)
+:Citizen: --> (Use5)
+"Give Birth Certificate" as (Use1)
+"Give Benefits" as (Use2)
+note top of (Use2)
+Includes SSS, TIN, GSIS, Insurance, etc.
+endnote
+"Give Occupation" as (Use3)
+"Give License" as (Use4)
+"Give Valid ID" as (Use5)
+
+"Admin" as Admin
+Admin --> (AdminUse1)
+Admin --> (AdminUse2)
+"Use Program to Register Necessary Details" as (AdminUse2)
+"Report status of Applicant" as (AdminUse1)
+@enduml
