@@ -1,6 +1,6 @@
 # OOYellowProject
 
-## The project is to create a National ID System using Object-Oriented Programming in Python Programming Language. ##
+## The project is to create a ID Centralization System using Object-Oriented Programming in Python Programming Language. ##
 
 https://trello.com/b/L9hJSpaU/oo1lxyellow
 
@@ -14,7 +14,7 @@ https://trello.com/b/L9hJSpaU/oo1lxyellow
 * The program will record important datas and credentials of every individuals.
 
 What would be the name of the project?
-* OOP_National ID System
+* OOP_ID Centralization System
 
 Where would OOP fit in?
 * Every individual (Ex. Engineers, Businessmen, Doctors, Teachers, etc.) will have their specified attributes (SSS, GSIS, Benefits and Insurance, Licenses, Passports, Barangay IDs, NBI IDs etc.)
