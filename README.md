@@ -9,9 +9,9 @@ https://trello.com/b/L9hJSpaU/oo1lxyellow
 * Dominic Edward Ty
 
 ### Features: ###
-* The program will have its own database for storing datas of individuals.
-* The program will use AES-256 encryption method for securing the access keys for every individuals.
-* The program will record important datas and credentials of every individuals.
+* The program will have its own database for storing datas of citizens.
+* The program will use AES-256 encryption method for securing the access keys specially assigned on every citizen.
+* The program will record important datas and credentials of citizens.
 
 What would be the name of the project?
 * OOP_ID Centralization System
