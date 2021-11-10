@@ -1,0 +1,41 @@
+Use Case:
+1.) The administrator runs the system, and proceeds to generate an encrypted Unique ID for the applicant.
+2.) The administrator then prepares the applicants' data as reference (Birth Certificate and Valid ID files) and input
+    necessary details.
+3.) The system reads the applicants' name, checks if it exists in the database, and reports whether the account is
+    active or inactive, if exists, proceed to step 6.
+4.) The system validates that the applicants' name doesn't already exist.
+5.) The administrator inputs, and the system adds the new applicant to the database
+6.) The administrator inputs the rest of the data on the system, referencing from the first two files.
+7.) The system then asks for confirmation if the data entered are valid and correct.
+8.) The system may ask to add Benefit Details to link with the applicants' Unique ID in the system.
+9.) The administrator then enters the requested details into the system, if there is none, proceed to next step.
+10.) The system may ask to add Occupation Details to link with the applicants' Unique ID in the system.
+11.) The administrator then enters the requested details into the system, if there is none, proceed to next step.
+12.) The system may ask to add License Details to link with the applicants' Unique ID in the system.
+13.) The administrator then enters the requested details into the system, if there is none, proceed to next step.
+14.) The system may ask to add TAX Details to link with the applicants' Unique ID in the system.
+15.) The administrator then enters the requested details into the system, if there is none, proceed to next step.
+16.) The system prints the final details on the screen.
+17.) The administrator proceeds to give the Encrypted UID to the applicant.
+
+
+Nouns (candidate classes):
+Encrypted Unique ID
+Birth Certificate
+Valid ID
+Benefit Details
+Occupation Details
+License Details
+TAX Details
+Database
+
+Verbs candidate operations:
+generate encrypted UID
+add an applicant
+add Benefit Details
+add Occupation Details
+add License Details
+add TAX Details
+modify
+print

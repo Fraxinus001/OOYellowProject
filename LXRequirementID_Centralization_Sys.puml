@@ -1,0 +1,45 @@
+@startuml
+title "ID Centralization System"
+(System Generates Encrypted UID) as 0
+(Administrator prepares and inputs the Birth Cert\n and Valid ID Files) as 1
+(System checks Applicants' name if exists) as 2
+(System validates name does not exist) as 3
+(Administrator inputs the name of applicant) as 4
+(System adds applicant to the database) as 5
+(Administrator inputs the rest of the data\nreferenced from first two files) as 6
+(System asks for confirmation if data is correct) as 7
+(System asks Benefit details) as 8
+(Administrator enters requested data) as 9
+(System asks Occupation Details) as 10
+(Administrator enters requested data) as 11
+(System asks License Details) as 12
+(Administrator enters requested data) as 13
+(System asks TAX Details) as 14
+(Administrator enters requested data) as 15
+(System prints final details) as 16
+(Administrator proceeds to give UID to the applicant) as 17
+
+0 --> 1
+1 --> 2
+2 --> 3
+2 --> 6 #green;line.dashed;text:green : skip
+3 --> 4
+4 --> 5
+5 --> 6
+6 --> 7
+7 --> 8
+8 --> 9
+8 --> 10 #green;line.dashed;text:green : skip
+9 --> 10
+10 --> 11
+10 --> 12 #green;line.dashed;text:green : skip
+11 --> 12
+12 --> 13
+12 --> 14 #green;line.dashed;text:green : skip
+13 --> 14
+14 --> 15
+14 --> 16 #green;line.dashed;text:green : skip
+15 --> 16
+16 --> 17
+
+@enduml
