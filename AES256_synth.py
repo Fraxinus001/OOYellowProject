@@ -4,9 +4,10 @@ import AES256_encrypt
 import AES256_decrypt
 
 password = "12345"
+encdat1 = 'TESTPASS1'
 
-encrypted = AES256_encrypt.encrypt("TESTPASSWORD1", password)
-print(encrypted)
+KeyEncrypt = AES256_encrypt.KeyEncrypt(encdat1, password)
+print(KeyEncrypt)
 
-decrypted = AES256_decrypt.decrypt(encrypted, password)
-print(bytes.decode(decrypted))
+KeyDecrypt = AES256_decrypt.KeyDecrypt(KeyEncrypt, password)
+print(KeyDecrypt)
