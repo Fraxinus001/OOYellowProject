@@ -6,7 +6,7 @@ from collections import defaultdict
 
 class IDCSys_Database():
     def __init__(self):
-        Datenow = datetime.date.today().strftime("%B %d, %Y")
+        DateTimeNow = datetime.datetime.today().strftime("%B %d, %Y - %I:%M:%S%p")
         d1 = self.read("dat001.db")
         d2 = self.read("dat002.db")
         d3 = self.read("dat003.db")
@@ -22,8 +22,5 @@ class IDCSys_Database():
     def write(self, data):
         return open(data, "wb")
     
-class IDCSys_Database_Reset():
-    def __init__(self):
-        Datenow = datetime.date.today().strftime("%B %d, %Y")
-        
-    
+class IDCSys_Database_Reset(IDCSys_Database):
+    def dump
