@@ -4,7 +4,7 @@ from Crypto.Cipher import AES
 
 
 def unpad(s):
-    return s[:-ord(s[len(s) - 1:])]
+    return s[0:-ord(s[-1:])]
 
 
 def decrypt(enc, password):

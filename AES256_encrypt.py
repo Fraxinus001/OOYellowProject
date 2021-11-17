@@ -3,12 +3,8 @@ from Crypto.Cipher import AES
 from Crypto import Random
 from Crypto.Protocol.KDF import PBKDF2
 
-
-def pad(s):
-    block_size = 16
-    remainder = len(s) % block_size
-    padding_needed = block_size - remainder
-    return s + padding_needed * ' '
+BLOCK_SIZE = 16
+pad = lambda s: bytes(s + (BLOCK_SIZE - len(s) % BLOCK_SIZE) * chr(BLOCK_SIZE - len(s) % BLOCK_SIZE), 'utf-8')
 
 
 def get_private_key(password):
@@ -24,4 +20,4 @@ def encrypt(raw, password):
     iv = Random.new().read(AES.block_size)
     cipher = AES.new(private_key, AES.MODE_CBC, iv)
     print(cipher.encrypt(raw))
-    return base64.b64encode(bytes(str(iv + cipher.encrypt(raw))))
+    return base64.b64encode(iv + cipher.encrypt(raw))

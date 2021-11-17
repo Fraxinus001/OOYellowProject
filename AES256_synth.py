@@ -1,3 +1,5 @@
+# pip install pycryptodomex
+
 import AES256_encrypt
 import AES256_decrypt
 
