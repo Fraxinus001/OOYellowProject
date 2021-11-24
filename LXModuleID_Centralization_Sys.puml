@@ -1,0 +1,64 @@
+@startuml
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam classFontStyle bold
+hide empty members
+
+hide empty methods
+
+package "IDCSys_Synth"{
+class "IDCSys_Encrypt"
+class "IDCSys_Decrypt"
+class "IDCSys_PrivateKey"
+"IDCSys_Encrypt" : +AccessKeys
+"IDCSys_Encrypt" : +KeyEncrypt-AES-256()
+"IDCSys_Encrypt" : +PrivateKey()
+"IDCSys_Decrypt" : +AccessKeys
+"IDCSys_Decrypt" : +KeyDecrypt-AES-256()
+"IDCSys_Decrypt" : +PrivateKey()
+"IDCSys_PrivateKey" : +PrivateKey()
+"IDCSys_PrivateKey" : +IDCSys_0x001.pvk()
+}
+
+package "IDCSys_Core"{
+class "IDCSys_MainMenu"
+"IDCSys_MainMenu" : +Login
+"IDCSys_MainMenu" : +DisplayData()
+"IDCSys_MainMenu" : +InputData()
+"IDCSys_MainMenu" : +DeleteData()
+"IDCSys_MainMenu" : +ModifyData()
+
+"IDCSys_Synth" ---|> "IDCSys_MainMenu"
+}
+
+package "IDCSys_Database"{
+class "Database"
+"Database" : +Name
+"Database" : +Address
+"Database" : +ContactNo.
+"Database" : +Birthday
+"Database" : +Nationality
+"Database" : +Occupation
+"Database" : +Benefits
+"Database" : +Credentials
+
+class "IDCSys_Benefits"
+"IDCSys_Benefits" : +SSSData
+"IDCSys_Benefits" : +GSISData
+
+class "IDCSys_Credentials"
+"IDCSys_Credentials" : +ValidIDs
+"IDCSys_Credentials" : +Passport
+"IDCSys_Credentials" : +NBIClearance
+"IDCSys_Credentials" : +BarangayID
+"IDCSys_Credentials" : +Driver'sLicense
+"IDCSys_Credentials" : +ProfessionalLicense
+
+class "IDCSys_TAXData"
+"IDCSys_TAXData" : +TINData
+"IDCSys_TAXData" : +Cedula
+}
+
+"IDCSys_Core" <|---|> "IDCSys_Database"
+
+@enduml
