@@ -1,6 +1,21 @@
 # ID Centralization System
 
 import AES256_synth
+import IDCSys_Database
+import IDCSys_Authorizor
+
+# Set up a test user and permission
+# Permits to operate
+IDCSys_Authorizor.authorizor.add_permission("test program")
+IDCSys_Authorizor.authorizor.add_permission("change program")
+# Dominic Edward G. Ty
+IDCSys_Authorizor.authenticator.add_user("degty@idcsys.com", "12345")
+IDCSys_Authorizor.authorizor.permit_user("test program", "degty@idcsys.com")
+IDCSys_Authorizor.authorizor.permit_user("change program", "degty@idcsys.com")
+# Francis S. Tale
+IDCSys_Authorizor.authenticator.add_user("fstale@idcsys.com", "12345")
+IDCSys_Authorizor.authorizor.permit_user("test program", "fstale@idcsys.com")
+IDCSys_Authorizor.authorizor.permit_user("change program", "fstale@idcsys.com")
 
 
 class IDCSys_Core:

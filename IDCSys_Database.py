@@ -9,14 +9,14 @@ from collections import defaultdict
 class IDCSys_Database:
     def __init__(self):
         DateTimeNow = datetime.datetime.today().strftime("%B %d, %Y - %I:%M:%S%p")
-        #dat001 = self.readmode("dat001.db")
-        #dat002 = self.readmode("dat002.db")
-        #dat003 = self.readmode("dat003.db")
-        #dat004 = self.readmode("dat004.db")
-        #d1 = pickle.load(dat001)
-        #d2 = pickle.load(dat002)
-        #d3 = pickle.load(dat003)
-        #d4 = pickle.load(dat004)
+        dat001 = self.readmode("dat001.db")
+        dat002 = self.readmode("dat002.db")
+        dat003 = self.readmode("dat003.db")
+        dat004 = self.readmode("dat004.db")
+        d1 = pickle.load(dat001)
+        d2 = pickle.load(dat002)
+        d3 = pickle.load(dat003)
+        d4 = pickle.load(dat004)
     
     def readmode(self, file):
         return open(file, "rb")
@@ -59,8 +59,6 @@ class IDCSys_Database_Test(IDCSys_Database):
         self.d1a[usr1][1] = self.d1a[usr1][1].decode()
         print(f"debug: {self.d1a}")
 
-    def dump(self):
-        self.d1a
         
         
 class IDCSys_Database_Reset(IDCSys_Database):
@@ -75,6 +73,10 @@ class IDCSys_Database_Reset(IDCSys_Database):
         UUID = self.gen_UUID()
         return {UUID: []}
     
+    def execwrite_a(self, dat):
+        self.w_dump(self.maintemplate, dat)
+        self.f_close(dat)
+    
     def execwrite(self):
         self.maintemplate = self.maintemplate()
         #print(self.maintemplate)
@@ -82,15 +84,8 @@ class IDCSys_Database_Reset(IDCSys_Database):
         b = self.writemode("dat002.db")
         c = self.writemode("dat003.db")
         d = self.writemode("dat004.db")
-        
-        self.w_dump(self.maintemplate, a)
-        self.f_close(a)
-        self.w_dump(self.maintemplate, b)
-        self.f_close(b)
-        self.w_dump(self.maintemplate, c)
-        self.f_close(c)
-        self.w_dump(self.maintemplate, d)
-        self.f_close(d)
+        self.execwrite_a(a), self.execwrite_a(b), self.execwrite_a(c), self.execwrite_a(d)
+
         load_a = pickle.load(self.readmode("dat001.db"))
         load_b = pickle.load(self.readmode("dat002.db"))
         load_c = pickle.load(self.readmode("dat003.db"))
