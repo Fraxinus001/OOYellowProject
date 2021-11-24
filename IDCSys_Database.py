@@ -18,11 +18,11 @@ class IDCSys_Database:
         #d3 = pickle.load(dat003)
         #d4 = pickle.load(dat004)
     
-    def readmode(self, data):
-        return open(data, "rb")
+    def readmode(self, file):
+        return open(file, "rb")
     
-    def writemode(self, data):
-        return open(data, "wb")
+    def writemode(self, file):
+        return open(file, "wb")
     
     def w_pop_(self, dx, UUID, input1):
         dx[UUID] = dx.pop(input1)
@@ -77,10 +77,16 @@ class IDCSys_Database_Reset(IDCSys_Database):
     
     def execwrite(self):
         self.maintemplate = self.maintemplate()
-        self.writemode = self.writemode("dat001.db")
-        self.w_dump(self.maintemplate, self.writemode)
-        print(self.maintemplate)
-        a = pickle.load(self.readmode("dat001.db"))
-        print(f"debug: {a}")
+        #print(self.maintemplate)
+        a = self.writemode("dat001.db")
+        b = self.writemode("dat001.db")
+        c = self.writemode("dat001.db")
+        d = self.writemode("dat001.db")
+        
+        self.w_dump(self.maintemplate, a)
+        self.f_close(a)
+        load_a = pickle.load(self.readmode("dat001.db"))
+        print(f"debug: {load_a}")
+        
 
 print(IDCSys_Database_Reset().execwrite())
