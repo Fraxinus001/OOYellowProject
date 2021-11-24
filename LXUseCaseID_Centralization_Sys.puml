@@ -1,0 +1,53 @@
+@startuml
+skinparam actorStyle awesome
+title "ID Centralization System"
+:Applicant: -left-> (Use1)
+:Applicant: -right-> (Use2)
+:Applicant: -down-> (Use3)
+:Applicant: -up-> (Use4)
+:Applicant: --> (Use5)
+"Give Birth Certificate" as (Use1)
+note top of (Use1)
+As proof of nationality and identity
+endnote
+
+"Give Benefit Details" as (Use2)
+note top of (Use2)
+Such as SSS, TIN, GSIS, Insurance, etc.
+endnote
+
+"Give Occupation" as (Use3)
+note bottom of (Use3)
+Job or profession of applicant
+endnote
+
+"Give License" as (Use4)
+note top of (Use4)
+Such as Driver's License,
+Engineering License, Teaching License
+endnote
+
+"Give Valid ID" as (Use5)
+note bottom of (Use5)
+Such as UMID, Phil Heath ID,
+Passport, Recent School ID,
+National/Residence ID from
+other countries(Resident Aliens), etc.
+endnote
+
+"Admin" as Admin
+Admin --> (AdminUse1)
+Admin --> (AdminUse2)
+"Report status of Applicant" as (AdminUse1)
+note bottom of (AdminUse1)
+Status of Applicant if they already have
+an existing ID, if they don't have an ID,
+or if their ID is expired
+endnote
+
+"Use Program to Register Necessary Details" as (AdminUse2)
+note bottom of (AdminUse2)
+Access program to register, change,
+and secure details of Applicant
+endnote
+@enduml
