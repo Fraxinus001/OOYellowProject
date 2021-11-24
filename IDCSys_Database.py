@@ -73,20 +73,32 @@ class IDCSys_Database_Reset(IDCSys_Database):
     
     def maintemplate(self):
         UUID = self.gen_UUID()
-        return {UUID:[]}
+        return {UUID: []}
     
     def execwrite(self):
         self.maintemplate = self.maintemplate()
         #print(self.maintemplate)
         a = self.writemode("dat001.db")
-        b = self.writemode("dat001.db")
-        c = self.writemode("dat001.db")
-        d = self.writemode("dat001.db")
+        b = self.writemode("dat002.db")
+        c = self.writemode("dat003.db")
+        d = self.writemode("dat004.db")
         
         self.w_dump(self.maintemplate, a)
         self.f_close(a)
+        self.w_dump(self.maintemplate, b)
+        self.f_close(b)
+        self.w_dump(self.maintemplate, c)
+        self.f_close(c)
+        self.w_dump(self.maintemplate, d)
+        self.f_close(d)
         load_a = pickle.load(self.readmode("dat001.db"))
+        load_b = pickle.load(self.readmode("dat002.db"))
+        load_c = pickle.load(self.readmode("dat003.db"))
+        load_d = pickle.load(self.readmode("dat004.db"))
         print(f"debug: {load_a}")
+        print(f"debug: {load_b}")
+        print(f"debug: {load_c}")
+        print(f"debug: {load_d}")
         
 
 print(IDCSys_Database_Reset().execwrite())
