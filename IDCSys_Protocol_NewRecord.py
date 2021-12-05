@@ -1,21 +1,23 @@
 import IDCSys_Database
 
 
-class protocol(IDCSys_Database.IDCSys_Database):
+class Protocol(IDCSys_Database.IDCSys_Database):
     def __init__(self, key):
         super().__init__()
         self.key = key
         self.counter = 0
-        #self.readmode_all()
-        
-    def q_name(self):
+        # self.readmode_all()
+
+    @staticmethod
+    def q_name():
         FN = input("Please input the registrant's First Name: ")
         MN = input("Please input the registrant's Middle Name: ")
         LN = input("Please input the registrant's Last Name: ")
         a = LN + ", " + FN + ", " + MN
         return a
-    
-    def q_addr(self):
+
+    @staticmethod
+    def q_addr():
         HN = input("Please input the registrant's House No. / Street / Village, Subd.: ")
         BA = input("Please input the registrant's Barangay: ")
         CT = input("Please input the registrant's City / Municipality: ")
@@ -23,20 +25,24 @@ class protocol(IDCSys_Database.IDCSys_Database):
         ZC = input("Please input the registrant's Zip Code: ")
         b = HN + ", " + BA + ", " + CT + ", " + PR + " | ZIP:" + ZC
         return b
-    
-    def q_contno(self):
+
+    @staticmethod
+    def q_contno():
         c = "+63" + input("Please input the registrant's Contact Number (+63): ")
         return c
-    
-    def q_bday(self):
+
+    @staticmethod
+    def q_bday():
         d = input("Please input the registrant's Birthday: ")
         return d
-    
-    def q_natl(self):
+
+    @staticmethod
+    def q_natl():
         e = input("Please input the registrant's Nationality: ")
         return e
-    
-    def q_occp(self):
+
+    @staticmethod
+    def q_occp():
         f = input("Please input the registrant's Latest Occupation: ")
         return f
         
@@ -50,7 +56,7 @@ class protocol(IDCSys_Database.IDCSys_Database):
         input("Please press any key to continue.")
         print("Demonstration Mode.")
         UUID = input("Please input the registrant's UUID: ") or \
-               b'PQVNe7ZhcwqnkW4cUI+/UfpSo4DO9gj52h4ah+gNbjrJzyrYr4sM41T5LBTR7t/5'
+            b'PQVNe7ZhcwqnkW4cUI+/UfpSo4DO9gj52h4ah+gNbjrJzyrYr4sM41T5LBTR7t/5'
         if UUID == b'PQVNe7ZhcwqnkW4cUI+/UfpSo4DO9gj52h4ah+gNbjrJzyrYr4sM41T5LBTR7t/5':
             print("DEMO: UUID b'PQVNe7ZhcwqnkW4cUI+/UfpSo4DO9gj52h4ah+gNbjrJzyrYr4sM41T5LBTR7t/5' loaded!")
         ask = input("DEMO: Confimation: ")
@@ -87,7 +93,6 @@ class protocol(IDCSys_Database.IDCSys_Database):
         print(f"\033[95mOccupation: \033[0m{self.d1[UUID][5]}")
         print(f"\033[95mRESERVED\033[0m{self.d1[UUID][6]}")
         input("\033[95mPlease press any key to continue.\033[0m")
-        #self.writemode_all()
+        # self.writemode_all()
         self.f_dump_d1(self.d1)
-        
             
