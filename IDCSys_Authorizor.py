@@ -271,6 +271,8 @@ class IDCSys_Authorizor_BuildDB(IDCSys_Database):
         print(f"debug: {load_b}")
 
         
+
+
 class Authorize:
     def run(self):
         IDCSys_Authorizor_BuildDB().execwrite()
@@ -283,7 +285,8 @@ class Authorize:
         #print(Authenticator().return_users())
         #print(authorizor.return_perms())
         
-                
+        
+        
         # Dominic Edward G. Ty
         authenticator.add_user("degty@idcsys.com", "12345@sae2")
         authorizor.permit_user(b"Read", "degty@idcsys.com")

@@ -13,14 +13,14 @@ class IDCSys_Database:
         DateTimeNow = datetime.datetime.today().strftime("%B %d, %Y - %I:%M:%S%p")
         self.fernet = Fernet(self.load_FernetKey())
         FernetKey = None
-        #dat001 = fernet.decrypt(self.readmode("dat001.db").read())
-        #dat002 = fernet.decrypt(self.readmode("dat002.db").read())
-        #dat003 = fernet.decrypt(self.readmode("dat003.db").read())
-        #dat004 = fernet.decrypt(self.readmode("dat004.db").read())
-        #d1 = pickle.load(dat001)
-        #d2 = pickle.load(dat002)
-        #d3 = pickle.load(dat003)
-        #d4 = pickle.load(dat004)
+        self.dat001 = self.readmode("dat001.db")
+        self.dat002 = self.readmode("dat002.db")
+        self.dat003 = self.readmode("dat003.db")
+        self.dat004 = self.readmode("dat004.db")
+        self.d1 = pickle.load(self.dat001)
+        self.d2 = pickle.load(self.dat002)
+        self.d3 = pickle.load(self.dat003)
+        self.d4 = pickle.load(self.dat004)
     
     def load_FernetKey(self):
         key = AES256_synth.FernetKey(AES256_synth).FernetKey()
@@ -31,6 +31,16 @@ class IDCSys_Database:
     
     def writemode(self, file):
         return open(file, "wb")
+    
+    def loadsection(self, a, b):
+        S = {a: b}
+        return S
+    
+    def w_addrecord(self, dx, a, x, y):
+        for key in dict(dx):
+            if key == a:
+                dx[a].append(x)
+                dx[a][x] = y
     
     def w_pop_(self, dx, UUID, input1):
         dx[UUID] = dx.pop(input1)
@@ -50,6 +60,39 @@ class IDCSys_Database:
     def f_close(self, dx):
         dx.close()
         
+    def f_dump_d1(self, d1):
+        with self.writemode("dat001.db") as db:
+            self.w_dump(d1, db)
+        
+    def f_readmode_all(self):
+        self.dat001 = self.readmode("dat001.db")
+        self.dat002 = self.readmode("dat002.db")
+        self.dat003 = self.readmode("dat003.db")
+        self.dat004 = self.readmode("dat004.db")
+        self.d1 = pickle.load(self.dat001)
+        self.d2 = pickle.load(self.dat002)
+        self.d3 = pickle.load(self.dat003)
+        self.d4 = pickle.load(self.dat004)
+        
+    def f_writemode_all(self):
+        self.dat001 = self.writemode("dat001.db")
+        self.dat002 = self.writemode("dat002.db")
+        self.dat003 = self.writemode("dat003.db")
+        self.dat004 = self.writemode("dat004.db")
+        self.d1 = pickle.load(self.dat001)
+        self.d2 = pickle.load(self.dat002)
+        self.d3 = pickle.load(self.dat003)
+        self.d4 = pickle.load(self.dat004)
+        
+    def f_dump_all(self, d1, d2, d3, d4):
+        pickle.dump(d1, self.dat001)
+        pickle.dump(d2, self.dat002)
+        pickle.dump(d3, self.dat003)
+        pickle.dump(d4, self.dat004)
+        
+    def f_close_all(self):
+        self.d1.close(), self.d2.close(), self.d3.close(), self.d4.close()
+        
 class IDCSys_Database_Reset(IDCSys_Database):
     def __init__(self):
         super().__init__()
@@ -61,7 +104,8 @@ class IDCSys_Database_Reset(IDCSys_Database):
         return self.UUID
     
     def maintemplate(self):
-        UUID = self.gen_UUID()
+        #UUID = self.gen_UUID()
+        UUID = b'PQVNe7ZhcwqnkW4cUI+/UfpSo4DO9gj52h4ah+gNbjrJzyrYr4sM41T5LBTR7t/5'
         return {UUID: []}
     
     def execwrite_a(self, dat):
@@ -109,4 +153,4 @@ class IDCSys_Database_Test(IDCSys_Database):
         
 
 #if __name__ == '__main__':
-    print(IDCSys_Database_Reset().execwrite())
+#IDCSys_Database_Reset().execwrite()

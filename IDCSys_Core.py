@@ -1,15 +1,15 @@
 # ID Centralization System
 
 import AES256_synth
-import IDCSys_Database
 import IDCSys_Authorizor
+import IDCSys_Protocol_NewRecord
 
 
 class IDCSys_Core:
     def __init__(self):
         self.authenticator = IDCSys_Authorizor.authenticator
         self.authorizor = IDCSys_Authorizor.authorizor
-        self.UUID = "IDCSys-<TestPass02>-sySCDI"
+        self.UUID = b'PQVNe7ZhcwqnkW4cUI+/UfpSo4DO9gj52h4ah+gNbjrJzyrYr4sM41T5LBTR7t/5'
         self.AES_1 = AES256_synth.KeyEncrypt
         self.AES_2 = AES256_synth.KeyDecrypt
         self.username = 'User'
@@ -29,6 +29,12 @@ class IDCSys_Core:
         while not logged_in:
             username = input("username: ")
             password = input("password: ")
+            print(username)
+            if username == "DEMO" or username == "":
+                username = "fstale@idcsys.com"
+                password = "12345@sae2"
+                print("Demonstration Mode. Auto logged-in with full Administration\n"
+                      "rights.")
             try:
                 logged_in = self.authenticator.login(username, password)
             except IDCSys_Authorizor.InvalidUsername:
@@ -75,7 +81,7 @@ class IDCSys_Core:
     # New Record
     def new(self):
         if self.is_permitted(b"Modify"):
-            print(f"To create new")
+            IDCSys_Protocol_NewRecord.protocol.menu(IDCSys_Protocol_NewRecord.protocol(self.UUID))
         else:
             print(f"Access Denied.")
     
@@ -109,13 +115,13 @@ class IDCSys_Core:
                 while True:
                     print("""
 Please enter a command:
-\tlogin\tLogin
-\tfinda\tFind Record(s) (Automated)
-\tfind\tFind Record(s) (Manual Search)
-\tnew \tAdd new Record(s)
-\tchange\tChange existing record(s)
-\tserial\tPrint Serial No.
-\tquit\tQuit
+\t\033[95mlogin\t\033[0mLogin
+\t\033[95mfinda\t\033[0mFind Record(s) (Automated)
+\t\033[95mfind\t\033[0mFind Record(s) (Manual Search)
+\t\033[95mnew \t\033[0mAdd new Record(s)
+\t\033[95mchange\t\033[0mChange existing record(s)
+\t\033[95mserial\t\033[0mPrint Serial No.
+\t\033[95mquit\t\033[0mQuit
                           """)
                     answer = input("enter a command: ").lower()
                     try:
