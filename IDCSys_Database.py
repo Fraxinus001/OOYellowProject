@@ -10,7 +10,10 @@ from cryptography.fernet import Fernet
 
 class IDCSys_Database:
     def __init__(self):
-        DateTimeNow = datetime.datetime.today().strftime("%B %d, %Y - %I:%M:%S%p")
+        # For DEMO purposes:
+        self.UUID_DEMO = b'h9HpeoZ5V0QR+CRR2bvTHQ9Qu1M/zSe0ESQEfFqUfkQJrViZuwdA3o68PpNl4JHjsx2La3B5JyyG25NSRkI+cw=='
+
+        self.serialk = "0000-00000-000"
         self.fernet = Fernet(self.load_FernetKey())
         FernetKey = None
         self.dat001 = self.readmode("dat001.db")
@@ -25,6 +28,21 @@ class IDCSys_Database:
     def load_FernetKey(self):
         key = AES256_synth.FernetKey(AES256_synth).FernetKey()
         return key
+    
+    def KeyEncrypt(self, key):
+        return AES256_synth.KeyEncrypt(key).KeyEncrypt()
+    
+    def KeyDecrypt_utf(self, key):
+        return AES256_synth.KeyDecrypt(AES256_synth).KeyDecrypt(key).decode('utf-8')
+        
+    def KeyDecrypt_byt(self, key):
+        return AES256_synth.KeyDecrypt(AES256_synth).KeyDecrypt(key)
+    
+    def gen_UUID(self):
+        self.DateTimeNow = datetime.datetime.today().strftime("%B %d, %Y - %I:%M:%S%p")
+        AccessKey = f"IDCSys-<{self.DateTimeNow}>-sySCDI"
+        self.UUID = AES256_synth.KeyEncrypt(AccessKey).KeyEncrypt()
+        return self.UUID
     
     def readmode(self, file):
         return open(file, "rb")
@@ -41,6 +59,9 @@ class IDCSys_Database:
             if key == a:
                 dx[a].append(x)
                 dx[a][x] = y
+                
+    def w_addreg(self, dx, key, val):
+        dx[key] = val
     
     def w_pop_(self, dx, UUID, input1):
         dx[UUID] = dx.pop(input1)
@@ -57,10 +78,13 @@ class IDCSys_Database:
     def w_dump(self, dx, data):
         pickle.dump(dx, data)
         
+    def f_load(self, dx):
+        return pickle.load(dx)
+        
     def f_close(self, dx):
         dx.close()
         
-    def f_dump_d1(self, d1):
+    def f_dump_dx(self, d1):
         with self.writemode("dat001.db") as db:
             self.w_dump(d1, db)
         
@@ -96,16 +120,18 @@ class IDCSys_Database:
 class IDCSys_Database_Reset(IDCSys_Database):
     def __init__(self):
         super().__init__()
-        self.DateTimeNow = datetime.datetime.today().strftime("%B %d, %Y - %I:%M:%S%p")
-        self.UUID = AES256_synth.KeyEncrypt(self.DateTimeNow).KeyEncrypt()
+        self.DateTimeNow = None
+        self.UUID = None
         self.maintemplate = self.maintemplate()
         
     def gen_UUID(self):
+        self.DateTimeNow = datetime.datetime.today().strftime("%B %d, %Y - %I:%M:%S%p")
+        AccessKey = f"IDCSys-<{self.DateTimeNow}>-sySCDI"
+        self.UUID = AES256_synth.KeyEncrypt(AccessKey).KeyEncrypt()
         return self.UUID
     
     def maintemplate(self):
-        #UUID = self.gen_UUID()
-        UUID = b'PQVNe7ZhcwqnkW4cUI+/UfpSo4DO9gj52h4ah+gNbjrJzyrYr4sM41T5LBTR7t/5'
+        UUID = self.gen_UUID()
         return {UUID: []}
     
     def execwrite_a(self, dat):
@@ -152,5 +178,5 @@ class IDCSys_Database_Test(IDCSys_Database):
         print(f"debug: {self.d1a}")
         
 
-#if __name__ == '__main__':
-#IDCSys_Database_Reset().execwrite()
+# if __name__ == '__main__':
+# IDCSys_Database_Reset().execwrite()

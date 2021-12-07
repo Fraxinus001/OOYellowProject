@@ -76,8 +76,8 @@ class Authorizor(IDCSys_Database):
     def __init__(self, authenticator):
         super().__init__()
         self.authenticator = authenticator
-        #load_perms = pickle.load(self.readmode("dat000.db"))
-        self.permissions = {} #load_perms
+        # load_perms = pickle.load(self.readmode("dat000.db"))
+        self.permissions = {}  # load_perms
     
     def add_permission(self, perm_name):
         """Create a new permission that users
@@ -149,77 +149,6 @@ authenticator = Authenticator()
 authorizor = Authorizor(authenticator)
 
 
-class Authority:
-    def __init__(self):
-        self.username = None
-        self.menu_map = {
-            "login": self.login,
-            "test": self.test,
-            "change": self.change,
-            "quit": self.quit,
-        }
-    
-    def login(self):
-        logged_in = False
-        while not logged_in:
-            username = input("username: ")
-            password = input("password: ")
-            try:
-                logged_in = authenticator.login(username, password)
-            except InvalidUsername:
-                print("Sorry, that username does not exist")
-            except InvalidPassword:
-                print("Sorry, incorrect password")
-            else:
-                self.username = username
-    
-    def is_permitted(self, permission):
-        try:
-            authorizor.check_permission(permission, self.username)
-        except NotLoggedInError as e:
-            print("{} is not logged in".format(e.username))
-            return False
-        except NotPermittedError as e:
-            print("{} cannot {}".format(e.username, permission))
-            return False
-        else:
-            return True
-    
-    def test(self):
-        if self.is_permitted("test program"):
-            print("Testing program now...")
-    
-    def change(self):
-        if self.is_permitted("change program"):
-            print("Changing program now...")
-    
-    def quit(self):
-        raise SystemExit()
-    
-    def menu(self):
-        try:
-            answer = ""
-            while True:
-                print(
-                    """
-                    Please enter a command:
-                    \tlogin\tLogin
-                    \ttest\tTest the program
-                    \tchange\tChange the program
-                    \tquit\tQuit
-                    """
-                )
-                answer = input("enter a command: ").lower()
-                try:
-                    func = self.menu_map[answer]
-                except KeyError:
-                    print("{} is not a valid option".format(answer))
-                else:
-                    func()
-        finally:
-            print("Thank you for testing the auth module")
-
-
 class IDCSys_Authorizor_BuildDB(IDCSys_Database):
     def __init__(self):
         super().__init__()
@@ -227,29 +156,33 @@ class IDCSys_Authorizor_BuildDB(IDCSys_Database):
         self.UUID = AES256_synth.KeyEncrypt(self.DateTimeNow).KeyEncrypt()
         self.template_a = self.template_a()
         self.template_b = self.template_b()
+        self.template_c = self.template_c()
         
     def add_user(self):
         a = self.writemode("dat0A1.db")
-        load_usrland = pickle.load(a)
         inputusn = input("Please enter the username: ")
         inputpas = input("Please enter the password: ")
         authenticator.add_user(inputusn, inputpas)
-        #User(inputusn, inputpas).return_usn()
+        # User(inputusn, inputpas).return_usn()
         self.f_close(a)
     
     def load_users(self):
-        load_usrland = pickle.load(self.readmode("dat0A1"))
+        load_usrland = pickle.load(self.readmode("dat0A1.db"))
         return load_usrland
     
     def template_a(self):
-        return {'degty@idcsys.com': '33d76d30cdc8108b67aca1e1a2a579720b9a13746651ac84d7b85272e3b6d7fa',
-                'fstale@idcsys.com': '33d76d30cdc8108b67aca1e1a2a579720b9a13746651ac84d7b85272e3b6d7fa'}
+        return {self.KeyEncrypt('degty@idcsys.com'): self.KeyEncrypt('12345@sae2'),
+                self.KeyEncrypt('fstale@idcsys.com'): self.KeyEncrypt('12345@sae2')}
     
     def template_b(self):
-        return {b'Read': {'degty@idcsys.com', 'fstale@idcsys.com'},
-                 b'Write': {'degty@idcsys.com', 'fstale@idcsys.com'},
-                 b'Delete': {'degty@idcsys.com', 'fstale@idcsys.com'},
-                 b'Modify': {'degty@idcsys.com', 'fstale@idcsys.com'}}
+        return {self.KeyEncrypt('Read'): {self.KeyEncrypt('degty@idcsys.com'), self.KeyEncrypt('fstale@idcsys.com')},
+                self.KeyEncrypt('Write'): {self.KeyEncrypt('degty@idcsys.com'), self.KeyEncrypt('fstale@idcsys.com')},
+                self.KeyEncrypt('Delete'): {self.KeyEncrypt('degty@idcsys.com'), self.KeyEncrypt('fstale@idcsys.com')},
+                self.KeyEncrypt('Modify'): {self.KeyEncrypt('degty@idcsys.com'), self.KeyEncrypt('fstale@idcsys.com')}}
+    
+    def template_c(self):
+        return {self.KeyEncrypt('degty@idcsys.com'): self.KeyEncrypt('Ty, Dominic Edward, Garchitorena'),
+                self.KeyEncrypt('fstale@idcsys.com'): self.KeyEncrypt('Tale, Francis, Sales')}
     
     def execwrite_a(self, dat):
         self.w_dump(self.template_a, dat)
@@ -258,48 +191,53 @@ class IDCSys_Authorizor_BuildDB(IDCSys_Database):
     def execwrite_b(self, dat):
         self.w_dump(self.template_b, dat)
         self.f_close(dat)
+        
+    def execwrite_c(self, dat):
+        self.w_dump(self.template_c, dat)
+        self.f_close(dat)
     
     def execwrite(self):
         # print(f"debug: {self.template_a}")
         a = self.writemode("dat0A1.db")
         self.execwrite_a(a)
-        load_a = pickle.load(self.readmode("dat0A1.db"))
-        print(f"debug: {load_a}")
+        # load_a = pickle.load(self.readmode("dat0A1.db"))
+        # print(f"debug: {load_a}")
         b = self.writemode("dat0A2.db")
         self.execwrite_b(b)
-        load_b = pickle.load(self.readmode("dat0A2.db"))
-        print(f"debug: {load_b}")
+        # load_b = pickle.load(self.readmode("dat0A2.db"))
+        # print(f"debug: {load_b}")
+        c = self.writemode("dat0A3.db")
+        self.execwrite_c(c)
+        # load_c = pickle.load(self.readmode("dat0A3.db"))
+        # print(f"debug: {load_c}")
 
-        
 
+class Authorize(IDCSys_Database):
+    def load_users(self):
+        load_usrland = pickle.load(self.readmode("dat0A1.db"))
+        return load_usrland
+    
+    def load_perms(self):
+        load_permsland = pickle.load(self.readmode("dat0A2.db"))
+        return load_permsland
+    
+    def load_names(self):
+        load_namesland = pickle.load(self.readmode("dat0A3.db"))
+        return load_namesland
 
-class Authorize:
+    def dat0A1_Load(self):
+        for keys in self.load_users().keys():
+            authenticator.add_user(self.KeyDecrypt_utf(keys), self.KeyDecrypt_utf(self.load_users()[keys]))
+            
+    def dat0A2_Load(self):
+        for keys in self.load_perms().keys():
+            authorizor.add_permission(self.KeyDecrypt_byt(keys))
+            for user in self.load_perms()[keys]:
+                authorizor.permit_user(self.KeyDecrypt_byt(keys), self.KeyDecrypt_utf(user))
+    
     def run(self):
-        IDCSys_Authorizor_BuildDB().execwrite()
-        # Set up a test user and permission
-        # Permits to operate
-        authorizor.add_permission(b"Read")
-        authorizor.add_permission(b"Write")
-        authorizor.add_permission(b"Delete")
-        authorizor.add_permission(b"Modify")
-        #print(Authenticator().return_users())
-        #print(authorizor.return_perms())
-        
-        
-        
-        # Dominic Edward G. Ty
-        authenticator.add_user("degty@idcsys.com", "12345@sae2")
-        authorizor.permit_user(b"Read", "degty@idcsys.com")
-        authorizor.permit_user(b"Write", "degty@idcsys.com")
-        authorizor.permit_user(b"Delete", "degty@idcsys.com")
-        authorizor.permit_user(b"Modify", "degty@idcsys.com")
-        print(User("degty@idcsys.com", "12345@sae2").return_usn())
-        print(User("degty@idcsys.com", "12345@sae2").return_pas())
-        # Francis S. Tale
-        authenticator.add_user("fstale@idcsys.com", "12345@sae2")
-        authorizor.permit_user(b"Read", "fstale@idcsys.com")
-        authorizor.permit_user(b"Write", "fstale@idcsys.com")
-        authorizor.permit_user(b"Delete", "fstale@idcsys.com")
-        authorizor.permit_user(b"Modify", "fstale@idcsys.com")
-        #print(Authenticator().return_users())
-        #print(authorizor.return_perms())
+        # IDCSys_Authorizor_BuildDB().execwrite()
+        self.dat0A1_Load()
+        self.dat0A2_Load()
+
+# Authorize().run()

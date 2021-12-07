@@ -51,4 +51,7 @@ class FernetKey(AES256_synth):
         return key
     
 
-print(FernetKey(AES256_synth).FernetKey())
+#print(f"debug: {FernetKey(AES256_synth).FernetKey()}")
+#a = KeyEncrypt("apple").KeyEncrypt()
+#print(a)
+#print(KeyDecrypt(AES256_synth).KeyDecrypt(a).decode('utf-8'))

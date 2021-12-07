@@ -14,7 +14,7 @@ def get_private_key(password, salt):
 
 
 def KeyEncrypt(raw, password, salt):
-    print(f"debug: {salt}")
+    #print(f"debug: {salt}")
     private_key = get_private_key(password, salt)
     raw = pad(raw)
     iv = Random.new().read(AES.block_size)
