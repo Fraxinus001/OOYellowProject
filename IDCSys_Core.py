@@ -5,6 +5,7 @@ import IDCSys_Authorizor
 import IDCSys_Protocol_NewRecord
 import IDCSys_Protocol_ModifyRecord
 import IDCSys_Protocol_RegUser
+import IDCSys_Protocol_Find_Auto
 from IDCSys_Database import IDCSys_Database
 
 
@@ -111,7 +112,7 @@ class IDCSys_Core(IDCSys_Database):
     # Find (Auto)
     def finda(self):
         if self.is_permitted(b"Read"):
-            print(f"To find(auto)")
+            IDCSys_Protocol_Find_Auto.Protocol.menu(IDCSys_Protocol_Find_Auto.Protocol())
         else:
             print(f"Access Denied.")
             

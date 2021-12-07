@@ -107,19 +107,19 @@ class Protocol(IDCSys_Database):
                 else:
                     func()
         if self.a is None:
-            self.a = self.KeyDecrypt_utf(self.d1[self.UUID][0])
+            self.a = self.d1[self.UUID][0]
         elif self.b is None:
-            self.b = self.KeyDecrypt_utf(self.d1[self.UUID][1])
+            self.b = self.d1[self.UUID][1]
         elif self.c is None:
-            self.c = self.KeyDecrypt_utf(self.d1[self.UUID][2])
+            self.c = self.d1[self.UUID][2]
         elif self.d is None:
-            self.d = self.KeyDecrypt_utf(self.d1[self.UUID][3])
+            self.d = self.d1[self.UUID][3]
         elif self.e is None:
-            self.e = self.KeyDecrypt_utf(self.d1[self.UUID][4])
+            self.e = self.d1[self.UUID][4]
         elif self.f is None:
-            self.f = self.KeyDecrypt_utf(self.d1[self.UUID][5])
+            self.f = self.d1[self.UUID][5]
         elif self.g is None:
-            self.g = self.KeyDecrypt_utf(self.d1[self.UUID][6])
+            self.g = self.d1[self.UUID][6]
         specified = [self.a, self.b, self.c, self.d, self.e, self.f, self.g]
         for i in specified:
             self.w_addrecord(self.d1, self.UUID, self.counter, i)
