@@ -27,9 +27,9 @@ class "IDCSys_MainMenu"
 "IDCSys_MainMenu" : +InputData()
 "IDCSys_MainMenu" : +DeleteData()
 "IDCSys_MainMenu" : +ModifyData()
-
-"IDCSys_Synth" ---|> "IDCSys_MainMenu"
 }
+
+"IDCSys_Synth" ---|> "IDCSys_Core"
 
 package "IDCSys_Database"{
 class "Database"
@@ -57,6 +57,11 @@ class "IDCSys_Credentials"
 class "IDCSys_TAXData"
 "IDCSys_TAXData" : +TINData
 "IDCSys_TAXData" : +Cedula
+
+class IDCSys_Authorizor
+"IDCSys_Authorizor" : +User
+"IDCSys_Authorizor" : +Permission
+"IDCSys_Authorizor" : +Name
 }
 
 "IDCSys_Core" <|---|> "IDCSys_Database"
