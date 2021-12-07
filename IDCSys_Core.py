@@ -55,7 +55,6 @@ class IDCSys_Core(IDCSys_Database):
         print(f"Serial No.: {IDCSys_Database().serialk}")
         
     def admin(self):
-        answer = ""
         print("""
 \t\033[95mlogout\t\033[0mLogout
 \t\033[95mreg  \t\033[0mRegister new user
@@ -141,7 +140,8 @@ class IDCSys_Core(IDCSys_Database):
         pass
     
     # Quit
-    def quit(self):
+    @staticmethod
+    def quit():
         print("Thank you.")
         raise SystemExit()
     
@@ -155,7 +155,6 @@ class IDCSys_Core(IDCSys_Database):
     # Main Menu
     def mainmenu_console(self):
         print("Welcome to ID Centralization System")
-        answer = ""
         while True:
             print(f"""
 {self.mainmenu_func_login()}

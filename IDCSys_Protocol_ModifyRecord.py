@@ -6,13 +6,13 @@ class Protocol(IDCSys_Database):
     def __init__(self):
         super().__init__()
         self.UUID = ''
-        self.a = None
-        self.b = None
-        self.c = None
-        self.d = None
-        self.e = None
-        self.f = None
-        self.g = None
+        self.name = None
+        self.addr = None
+        self.contno = None
+        self.bday = None
+        self.natl = None
+        self.occp = None
+        self.rsv1 = None
         self.counter = 0
         self.goback = False
         self.menu_map = {
@@ -32,7 +32,7 @@ class Protocol(IDCSys_Database):
         MN = input("Please input the registrant's Middle Name: ")
         LN = input("Please input the registrant's Last Name: ")
         a = LN + ", " + FN + ", " + MN
-        self.a = a
+        self.name = a
 
     def q_addr(self):
         print("\033[95mAddress:\033[0m")
@@ -42,23 +42,23 @@ class Protocol(IDCSys_Database):
         PR = input("Please input the registrant's Province: ")
         ZC = input("Please input the registrant's Zip Code: ")
         b = HN + ", " + BA + ", " + CT + ", " + PR + " | ZIP:" + ZC
-        self.b = b
+        self.addr = b
 
     def q_contno(self):
         c = "+63" + input("Please input the registrant's Contact Number (+63): ")
-        self.c = c
+        self.contno = c
 
     def q_bday(self):
         d = input("Please input the registrant's Birthday: ")
-        self.d = d
+        self.bday = d
 
     def q_natl(self):
         e = input("Please input the registrant's Nationality: ")
-        self.e = e
+        self.natl = e
 
     def q_occp(self):
         f = input("Please input the registrant's Latest Occupation: ")
-        self.f = f
+        self.occp = f
     
     def d_finalize(self):
         print("///  END OF QUERY  ///")
@@ -70,6 +70,48 @@ class Protocol(IDCSys_Database):
         print(f"\033[95mNationality: \033[0m{self.KeyDecrypt_utf(self.d1[self.UUID][4])}")
         print(f"\033[95mOccupation: \033[0m{self.KeyDecrypt_utf(self.d1[self.UUID][5])}")
         print(f"\033[95mRESERVED\033[0m{self.KeyDecrypt_utf(self.d1[self.UUID][6])}")
+        if self.name is None or self.name == '':
+            self.name = self.d1[self.UUID][0]
+        if self.addr is None or self.addr == '':
+            self.addr = self.d1[self.UUID][1]
+        if self.contno is None or self.contno == '':
+            self.contno = self.d1[self.UUID][2]
+        if self.bday is None or self.bday == '':
+            self.bday = self.d1[self.UUID][3]
+        if self.natl is None or self.natl == '':
+            self.natl = self.d1[self.UUID][4]
+        if self.occp is None or self.occp == '':
+            self.occp = self.d1[self.UUID][5]
+        if self.rsv1 is None or self.rsv1 == '':
+            self.rsv1 = self.d1[self.UUID][6]
+        specified = [self.name, self.addr, self.contno, self.bday, self.natl, self.occp, self.rsv1]
+        for i in specified:
+            self.w_addrecord(self.d1, self.UUID, self.counter, i)
+            self.counter += 1
+        self.counter = 0
+
+        for i in specified:
+            if self.d1[self.UUID][self.counter] == i:
+                if self.counter == 0:
+                    print("Name confirmed.")
+                elif self.counter == 1:
+                    print("Address confirmed.")
+                elif self.counter == 2:
+                    print("Contact No. confirmed.")
+                elif self.counter == 3:
+                    print("Birthday confirmed.")
+                elif self.counter == 4:
+                    print("Nationality confirmed.")
+                elif self.counter == 5:
+                    print("Occupation confirmed.")
+                elif self.counter == 6:
+                    print("RESERVED confirmed.")
+                self.counter += 1
+        self.counter = 0
+        self.f_dump_dx(self.d1)
+        print("\033[95mThe above data were successfully recorded in the database.\033[0m")
+        input("\033[95mPlease press any key to continue.\033[0m")
+        pass
     
     def back(self):
         self.goback = True
@@ -106,45 +148,5 @@ class Protocol(IDCSys_Database):
                     print("{} is not a valid option".format(answer))
                 else:
                     func()
-        if self.a is None:
-            self.a = self.d1[self.UUID][0]
-        elif self.b is None:
-            self.b = self.d1[self.UUID][1]
-        elif self.c is None:
-            self.c = self.d1[self.UUID][2]
-        elif self.d is None:
-            self.d = self.d1[self.UUID][3]
-        elif self.e is None:
-            self.e = self.d1[self.UUID][4]
-        elif self.f is None:
-            self.f = self.d1[self.UUID][5]
-        elif self.g is None:
-            self.g = self.d1[self.UUID][6]
-        specified = [self.a, self.b, self.c, self.d, self.e, self.f, self.g]
-        for i in specified:
-            self.w_addrecord(self.d1, self.UUID, self.counter, i)
-            self.counter += 1
-        self.counter = 0
 
-        for i in specified:
-            if self.d1[self.UUID][self.counter] == i:
-                if self.counter == 0:
-                    print("Name confirmed.")
-                elif self.counter == 1:
-                    print("Address confirmed.")
-                elif self.counter == 2:
-                    print("Contact No. confirmed.")
-                elif self.counter == 3:
-                    print("Birthday confirmed.")
-                elif self.counter == 4:
-                    print("Nationality confirmed.")
-                elif self.counter == 5:
-                    print("Occupation confirmed.")
-                elif self.counter == 6:
-                    print("RESERVED confirmed.")
-                self.counter += 1
-        self.counter = 0
-        self.f_dump_dx(self.d1)
-        print("\033[95mThe above data were successfully recorded in the database.\033[0m")
-        input("\033[95mPlease press any key to continue.\033[0m")
         

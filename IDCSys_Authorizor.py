@@ -76,7 +76,6 @@ class Authorizor(IDCSys_Database):
     def __init__(self, authenticator):
         super().__init__()
         self.authenticator = authenticator
-        # load_perms = pickle.load(self.readmode("dat000.db"))
         self.permissions = {}  # load_perms
     
     def add_permission(self, perm_name):

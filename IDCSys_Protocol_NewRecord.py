@@ -76,7 +76,7 @@ class Protocol(IDCSys_Database):
             c = self.KeyEncrypt("+639569046959")
             d = self.KeyEncrypt("10-29-2001")
             e = self.KeyEncrypt("Filipino")
-            f = self.KeyEncrypt("Engineer")
+            f = self.KeyEncrypt("Student")
             g = self.KeyEncrypt("")
         else:
             print("\033[95mName:\033[0m")

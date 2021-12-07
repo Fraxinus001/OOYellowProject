@@ -5,7 +5,7 @@ class Protocol(IDCSys_Database):
     def __init__(self):
         super().__init__()
         self.UUID = ''
-
+    
     def menu(self):
         print("\033[95mFind records (automated)\033[0m\n"
               "You are hereby will be authorized to view existing records")
@@ -23,4 +23,3 @@ class Protocol(IDCSys_Database):
             print(f"\033[95mOccupation: \033[0m{self.KeyDecrypt_utf(self.d1[self.UUID][5])}")
             print(f"\033[95mRESERVED\033[0m{self.KeyDecrypt_utf(self.d1[self.UUID][6])}")
         input("\033[95mPlease press any key to continue.\033[0m\n")
-        
