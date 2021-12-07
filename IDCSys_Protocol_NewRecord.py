@@ -47,6 +47,96 @@ class Protocol(IDCSys_Database):
     def q_occp():
         f = input("Please input the registrant's Latest Occupation: ")
         return f
+    
+    @staticmethod
+    def q_beneficiaries_sss():
+        ans = input("Do the registrant have Social Security System? (yes or no) ")
+        if ans == "yes":
+            g = input("Please input the registrant's Social Security Number (SSS): ")
+            return g
+        else:
+            return "Not Available"
+    
+    @staticmethod
+    def q_beneficiaries_gsis():
+        ans = input("Do the registrant have a Government Service Insurance System? (yes or no) ")
+        if ans == "yes":
+            h = input("Please input the registrant's Government Service Insurance System Number (GSIS): ")
+            return h
+        else:
+            return "Not Available"
+    
+    @staticmethod
+    def q_credentials_passport():
+        ans = input("Do the registrant have a Passport? (yes or no) ")
+        if ans == "yes":
+            i = input("Please input the registrant's Passport no.: ")
+            return i
+        else:
+            return "Not Available"
+    
+    @staticmethod
+    def q_credentials_drivid():
+        ans = input("Do the registrant have a Driver's ID? (yes or no) ")
+        if ans == "yes":
+            j = input("Please input the registrant's Driver's ID no.: ")
+            return j
+        else:
+            return "Not Available"
+    
+    @staticmethod
+    def q_credentials_profession():
+        ans = input("Do the registrant have a Professional License? (yes or no) ")
+        if ans == "yes":
+            i = input("Please input the registrant's Professional License no.: ")
+            return i
+        else:
+            return "Not Available"
+    
+    @staticmethod
+    def q_credentials_valID():
+        ans = input("Do the registrant have a Valid ID? (yes or no) ")
+        if ans == "yes":
+            i = input("Please input the registrant's primary Valid ID no.: ")
+            return i
+        else:
+            return "Not Available"
+    
+    @staticmethod
+    def q_credentials_nbi():
+        ans = input("Do the registrant have NBI Clearance? (yes or no) ")
+        if ans == "yes":
+            i = input("Please input the registrant's NBI Clearance no.: ")
+            return i
+        else:
+            return "Not Available"
+    
+    @staticmethod
+    def q_credentials_barid():
+        ans = input("Do the registrant have a Barangay ID? (yes or no) ")
+        if ans == "yes":
+            i = input("Please input the registrant's Baranday ID no.: ")
+            return i
+        else:
+            return "Not Available"
+        
+    @staticmethod
+    def q_taxdata_tindata():
+        ans = input("Do the registrant have a Taxpayer's ID? (yes or no) ")
+        if ans == "yes":
+            i = input("Please input the registrant's Taxpayer's Identification No.: ")
+            return i
+        else:
+            return "Not Available"
+        
+    @staticmethod
+    def q_taxdata_cedula():
+        ans = input("Do the registrant have a Cedula? (yes or no) ")
+        if ans == "yes":
+            i = input("Please input the registrant's Cedula no.: ")
+            return i
+        else:
+            return "Not Available"
         
     def menu(self):
         print("\033[95mAdd new person\033[0m\n"
@@ -56,20 +146,18 @@ class Protocol(IDCSys_Database):
               "Driver's, Engineering, Teaching License, if ever exist(s),\n"
               "and Benefits(GSIS, SSS, TIN, etc. if ever exist(s).")
         input("Please press any key to continue.")
-        ask = input("DEMO: Confimation: ")
-        if ask == "DEMO":
-            print("Demonstration Mode.")
-        UUID = input("Generate UUID? (yes, no): ") or self.UUID_DEMO
+        print("Demonstration Mode.")
+        UUID = input("Generate UUID (For DEMO, enter no)? (yes, no): ") or self.UUID_DEMO
         if UUID == self.UUID_DEMO or UUID == "no":
             UUID = self.UUID_DEMO
             print(f"DEMO: UUID {self.UUID_DEMO} loaded!")
         elif UUID == "yes":
             self.DateTimeNow = datetime.datetime.today().strftime("%B %d, %Y - %I:%M:%S%p")
             UUID = AES256_synth.KeyEncrypt(self.DateTimeNow).KeyEncrypt()
-            self.d1.add(UUID, [])
+            self.d1.update({UUID: []})
             print("The UUID has been generated. Please take note of this for the Registrant.")
             print(f"{UUID}")
-        ask = input("DEMO: Confimation: ")
+        ask = input("DEMO: Confimation, input DEMO to continue: ")
         if ask == "DEMO":
             a = self.KeyEncrypt("Tale, Francis, Sales")
             b = self.KeyEncrypt("Blk. 8 Lt. 36 Ph. 3 Isabel Terraces Metro Manila Hills, San Jose, Rodriguez, Rizal | ZIP:1860")
@@ -77,7 +165,6 @@ class Protocol(IDCSys_Database):
             d = self.KeyEncrypt("10-29-2001")
             e = self.KeyEncrypt("Filipino")
             f = self.KeyEncrypt("Student")
-            g = self.KeyEncrypt("")
         else:
             print("\033[95mName:\033[0m")
             a = self.KeyEncrypt(self.q_name())
@@ -88,10 +175,59 @@ class Protocol(IDCSys_Database):
             d = self.KeyEncrypt(self.q_bday())
             e = self.KeyEncrypt(self.q_natl())
             f = self.KeyEncrypt(self.q_occp())
-            g = self.KeyEncrypt(input(""))
-        specified = [a, b, c, d, e, f, g]
+        specified = [a, b, c, d, e, f]
         for i in specified:
-            self.w_addrecord(self.d1, UUID, self.counter, i)
+            self.w_addrecord(self.d1, UUID, i)
+            self.counter += 1
+        self.counter = 0
+        
+        # For Beneficiaries:
+        ans = (input("Skip Beneficiaries? (yes or no)"))
+        if ans == "yes":
+            a = self.KeyEncrypt("Not Available")
+            b = self.KeyEncrypt("Not Available")
+        else:
+            a = self.KeyEncrypt(self.q_beneficiaries_sss())
+            b = self.KeyEncrypt(self.q_beneficiaries_gsis())
+        specified = [a, b]
+        for i in specified:
+            self.w_addrecord(self.d2, UUID, i)
+            self.counter += 1
+        self.counter = 0
+        
+        # For Credentials:
+        ans = (input("Skip Credentials? (yes or no)"))
+        if ans == "yes":
+            a = self.KeyEncrypt("Not Available")
+            b = self.KeyEncrypt("Not Available")
+            c = self.KeyEncrypt("Not Available")
+            d = self.KeyEncrypt("Not Available")
+            e = self.KeyEncrypt("Not Available")
+            f = self.KeyEncrypt("Not Available")
+        else:
+            a = self.KeyEncrypt(self.q_credentials_valID())
+            b = self.KeyEncrypt(self.q_credentials_barid())
+            c = self.KeyEncrypt(self.q_credentials_nbi())
+            d = self.KeyEncrypt(self.q_credentials_passport())
+            e = self.KeyEncrypt(self.q_credentials_drivid())
+            f = self.KeyEncrypt(self.q_credentials_profession())
+        specified = [a, b, c, d, e, f]
+        for i in specified:
+            self.w_addrecord(self.d3, UUID, i)
+            self.counter += 1
+        self.counter = 0
+        
+        # For TAXData:
+        ans = (input("Skip TAX Data? (yes or no)"))
+        if ans == "yes":
+            a = self.KeyEncrypt("Not Available")
+            b = self.KeyEncrypt("Not Available")
+        else:
+            a = self.KeyEncrypt(self.q_taxdata_tindata())
+            b = self.KeyEncrypt(self.q_taxdata_cedula())
+        specified = [a, b]
+        for i in specified:
+            self.w_addrecord(self.d4, UUID, i)
             self.counter += 1
         self.counter = 0
         print("///  END OF QUERY  ///")
@@ -102,7 +238,6 @@ class Protocol(IDCSys_Database):
         print(f"\033[95mBirthday: \033[0m{self.KeyDecrypt_utf(self.d1[UUID][3])}")
         print(f"\033[95mNationality: \033[0m{self.KeyDecrypt_utf(self.d1[UUID][4])}")
         print(f"\033[95mOccupation: \033[0m{self.KeyDecrypt_utf(self.d1[UUID][5])}")
-        print(f"\033[95mRESERVED\033[0m{self.KeyDecrypt_utf(self.d1[UUID][6])}")
         for i in specified:
             if self.d1[UUID][self.counter] == i:
                 if self.counter == 0:
@@ -121,7 +256,10 @@ class Protocol(IDCSys_Database):
                     print("RESERVED confirmed.")
                 self.counter += 1
         self.counter = 0
-        self.f_dump_dx(self.d1)
+        self.f_dump_d1(self.d1)
+        self.f_dump_d2(self.d2)
+        self.f_dump_d3(self.d3)
+        self.f_dump_d4(self.d4)
         print("\033[95mThe above data were all accounted for and successfully "
               "recorded in the database.\033[0m")
         input("\033[95mPlease press any key to continue.\033[0m")

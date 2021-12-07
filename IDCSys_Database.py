@@ -2,20 +2,15 @@
 
 import pickle
 import datetime
-import base64
 import AES256_synth
-from collections import defaultdict
-from cryptography.fernet import Fernet
 
 
 class IDCSys_Database:
     def __init__(self):
-        # For DEMO purposes:
-        self.UUID_DEMO = b'h9HpeoZ5V0QR+CRR2bvTHQ9Qu1M/zSe0ESQEfFqUfkQJrViZuwdA3o68PpNl4JHjsx2La3B5JyyG25NSRkI+cw=='
+        # For DEMO purposes, update this everytime is reset:
+        self.UUID_DEMO = b'Pkii6kPFpyG/BeMwD1PL6zee2uQpzwDRTsKWBmjesr5igTXosyrt/QeGrjAl/RfyFKbJ9UoQm0tNXJaP9D7LbA=='
 
         self.serialk = "0000-00000-000"
-        self.fernet = Fernet(self.load_FernetKey())
-        FernetKey = None
         self.dat001 = self.readmode("dat001.db")
         self.dat002 = self.readmode("dat002.db")
         self.dat003 = self.readmode("dat003.db")
@@ -54,17 +49,16 @@ class IDCSys_Database:
         S = {a: b}
         return S
     
-    def w_addrecord(self, dx, a, x, y):
+    def w_addrecord(self, dx, a, y):
         for key in dict(dx):
             if key == a:
-                dx[a].append(x)
-                dx[a][x] = y
+                dx[a].append(y)
                 
     def w_addreg(self, dx, key, val):
         dx[key] = val
     
-    def w_pop_(self, dx, UUID, input1):
-        dx[UUID] = dx.pop(input1)
+    def w_pop_(self, dx, key):
+        dx.pop(key)
         
     def w_change_001(self, dx, UUID, A, index1, B):
         a = dx[UUID].index(A)
@@ -84,9 +78,21 @@ class IDCSys_Database:
     def f_close(self, dx):
         dx.close()
         
-    def f_dump_dx(self, d1):
+    def f_dump_d1(self, d1):
         with self.writemode("dat001.db") as db:
             self.w_dump(d1, db)
+            
+    def f_dump_d2(self, d2):
+        with self.writemode("dat002.db") as db:
+            self.w_dump(d2, db)
+            
+    def f_dump_d3(self, d3):
+        with self.writemode("dat003.db") as db:
+            self.w_dump(d3, db)
+            
+    def f_dump_d4(self, d4):
+        with self.writemode("dat004.db") as db:
+            self.w_dump(d4, db)
         
     def f_readmode_all(self):
         self.dat001 = self.readmode("dat001.db")
@@ -137,10 +143,7 @@ class IDCSys_Database_Reset(IDCSys_Database):
     def execwrite_a(self, dat):
         with self.writemode(dat) as opf1:
             self.w_dump(self.maintemplate, opf1)
-        #self.fernet = Fernet(self.load_FernetKey())
-        enc = self.fernet.encrypt(self.readmode(dat).read())
         self.readmode(dat).close()
-        #self.writemode(dat).write(enc)
         
     def execwrite(self):
         #print(f"debug: {self.maintemplate}")
@@ -158,24 +161,6 @@ class IDCSys_Database_Reset(IDCSys_Database):
         print(f"debug: {load_b}")
         print(f"debug: {load_c}")
         print(f"debug: {load_d}")
-
-
-class IDCSys_Database_Test(IDCSys_Database):
-    def __init__(self):
-        super().__init__()
-        self.d1a = {b'rWOmY9hR0FwFRVrlRYKEyjH4jq+Yj6ZKlzCNKNwRnsxxFKQrjojVYb7QjtQyuIz+': [b'Raf', b'Dec. 8, 2020']}
-        usr1 = b'rWOmY9hR0FwFRVrlRYKEyjH4jq+Yj6ZKlzCNKNwRnsxxFKQrjojVYb7QjtQyuIz+'
-        print(f"debug: {self.d1a[usr1]}")
-        print(f"debug: {self.d1a[usr1][0]}")
-        self.d1a[usr1][0] = base64.b64encode(self.d1a[usr1][0])
-        self.d1a[usr1][1] = base64.b64encode(self.d1a[usr1][1])
-        print(f"debug: {self.d1a}")
-        self.d1a[usr1][0] = base64.b64decode(self.d1a[usr1][0])
-        self.d1a[usr1][1] = base64.b64decode(self.d1a[usr1][1])
-        print(f"debug: {self.d1a}")
-        self.d1a[usr1][0] = self.d1a[usr1][0].decode()
-        self.d1a[usr1][1] = self.d1a[usr1][1].decode()
-        print(f"debug: {self.d1a}")
         
 
 # if __name__ == '__main__':

@@ -88,9 +88,8 @@ class Protocol(IDCSys_Database):
                         perms_list.append(b'Delete')
         return perms_list
         
-    
     def menu(self):
-        print("\033[95mAdministration: Register new user\033[0m")
+        print("\033[95mAdministration: Register new user account\033[0m")
         print("Please login again to continue.")
         IDCSys_Core.IDCSys_Core().logged_in = False
         IDCSys_Core.IDCSys_Core().login()

@@ -153,6 +153,8 @@ class IDCSys_Authorizor_BuildDB(IDCSys_Database):
         super().__init__()
         self.DateTimeNow = datetime.datetime.today().strftime("%B %d, %Y - %I:%M:%S%p")
         self.UUID = AES256_synth.KeyEncrypt(self.DateTimeNow).KeyEncrypt()
+        self.enc_ty = self.KeyEncrypt('degty@idcsys.com')
+        self.enc_ta = self.KeyEncrypt('fstale@idcsys.com')
         self.template_a = self.template_a()
         self.template_b = self.template_b()
         self.template_c = self.template_c()
@@ -170,18 +172,18 @@ class IDCSys_Authorizor_BuildDB(IDCSys_Database):
         return load_usrland
     
     def template_a(self):
-        return {self.KeyEncrypt('degty@idcsys.com'): self.KeyEncrypt('12345@sae2'),
-                self.KeyEncrypt('fstale@idcsys.com'): self.KeyEncrypt('12345@sae2')}
+        return {self.enc_ty: self.KeyEncrypt('12345@sae2'),
+                self.enc_ta: self.KeyEncrypt('12345@sae2')}
     
     def template_b(self):
-        return {self.KeyEncrypt('Read'): {self.KeyEncrypt('degty@idcsys.com'), self.KeyEncrypt('fstale@idcsys.com')},
-                self.KeyEncrypt('Write'): {self.KeyEncrypt('degty@idcsys.com'), self.KeyEncrypt('fstale@idcsys.com')},
-                self.KeyEncrypt('Delete'): {self.KeyEncrypt('degty@idcsys.com'), self.KeyEncrypt('fstale@idcsys.com')},
-                self.KeyEncrypt('Modify'): {self.KeyEncrypt('degty@idcsys.com'), self.KeyEncrypt('fstale@idcsys.com')}}
+        return {self.KeyEncrypt('Read'): {self.enc_ty, self.enc_ta},
+                self.KeyEncrypt('Write'): {self.enc_ty, self.enc_ta},
+                self.KeyEncrypt('Delete'): {self.enc_ty, self.enc_ta},
+                self.KeyEncrypt('Modify'): {self.enc_ty, self.enc_ta}}
     
     def template_c(self):
-        return {self.KeyEncrypt('degty@idcsys.com'): self.KeyEncrypt('Ty, Dominic Edward, Garchitorena'),
-                self.KeyEncrypt('fstale@idcsys.com'): self.KeyEncrypt('Tale, Francis, Sales')}
+        return {self.enc_ty: self.KeyEncrypt('Ty, Dominic Edward, Garchitorena'),
+                self.enc_ta: self.KeyEncrypt('Tale, Francis, Sales')}
     
     def execwrite_a(self, dat):
         self.w_dump(self.template_a, dat)
@@ -196,6 +198,7 @@ class IDCSys_Authorizor_BuildDB(IDCSys_Database):
         self.f_close(dat)
     
     def execwrite(self):
+        print(self.enc_ta)
         # print(f"debug: {self.template_a}")
         a = self.writemode("dat0A1.db")
         self.execwrite_a(a)

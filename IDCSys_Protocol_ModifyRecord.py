@@ -59,6 +59,96 @@ class Protocol(IDCSys_Database):
     def q_occp(self):
         f = input("Please input the registrant's Latest Occupation: ")
         self.occp = f
+
+    @staticmethod
+    def q_beneficiaries_sss():
+        ans = input("Do the registrant have Social Security System? (yes or no) ")
+        if ans == "yes":
+            g = input("Please input the registrant's Social Security Number (SSS): ")
+            return g
+        else:
+            return "Not Available"
+
+    @staticmethod
+    def q_beneficiaries_gsis():
+        ans = input("Do the registrant have a Government Service Insurance System? (yes or no) ")
+        if ans == "yes":
+            h = input("Please input the registrant's Government Service Insurance System Number (GSIS): ")
+            return h
+        else:
+            return "Not Available"
+
+    @staticmethod
+    def q_credentials_passport():
+        ans = input("Do the registrant have a Passport? (yes or no) ")
+        if ans == "yes":
+            i = input("Please input the registrant's Passport no.: ")
+            return i
+        else:
+            return "Not Available"
+
+    @staticmethod
+    def q_credentials_drivid():
+        ans = input("Do the registrant have a Driver's ID? (yes or no) ")
+        if ans == "yes":
+            j = input("Please input the registrant's Driver's ID no.: ")
+            return j
+        else:
+            return "Not Available"
+
+    @staticmethod
+    def q_credentials_profession():
+        ans = input("Do the registrant have a Professional License? (yes or no) ")
+        if ans == "yes":
+            i = input("Please input the registrant's Professional License no.: ")
+            return i
+        else:
+            return "Not Available"
+
+    @staticmethod
+    def q_credentials_valID():
+        ans = input("Do the registrant have a Valid ID? (yes or no) ")
+        if ans == "yes":
+            i = input("Please input the registrant's primary Valid ID no.: ")
+            return i
+        else:
+            return "Not Available"
+
+    @staticmethod
+    def q_credentials_nbi():
+        ans = input("Do the registrant have NBI Clearance? (yes or no) ")
+        if ans == "yes":
+            i = input("Please input the registrant's NBI Clearance no.: ")
+            return i
+        else:
+            return "Not Available"
+
+    @staticmethod
+    def q_credentials_barid():
+        ans = input("Do the registrant have a Barangay ID? (yes or no) ")
+        if ans == "yes":
+            i = input("Please input the registrant's Baranday ID no.: ")
+            return i
+        else:
+            return "Not Available"
+
+    @staticmethod
+    def q_taxdata_tindata():
+        ans = input("Do the registrant have a Taxpayer's ID? (yes or no) ")
+        if ans == "yes":
+            i = input("Please input the registrant's Taxpayer's Identification No.: ")
+            return i
+        else:
+            return "Not Available"
+
+    @staticmethod
+    def q_taxdata_cedula():
+        ans = input("Do the registrant have a Cedula? (yes or no) ")
+        if ans == "yes":
+            i = input("Please input the registrant's Cedula no.: ")
+            return i
+        else:
+            return "Not Available"
     
     def d_finalize(self):
         print("///  END OF QUERY  ///")
@@ -69,7 +159,6 @@ class Protocol(IDCSys_Database):
         print(f"\033[95mBirthday: \033[0m{self.KeyDecrypt_utf(self.d1[self.UUID][3])}")
         print(f"\033[95mNationality: \033[0m{self.KeyDecrypt_utf(self.d1[self.UUID][4])}")
         print(f"\033[95mOccupation: \033[0m{self.KeyDecrypt_utf(self.d1[self.UUID][5])}")
-        print(f"\033[95mRESERVED\033[0m{self.KeyDecrypt_utf(self.d1[self.UUID][6])}")
         if self.name is None or self.name == '':
             self.name = self.d1[self.UUID][0]
         if self.addr is None or self.addr == '':
@@ -82,11 +171,9 @@ class Protocol(IDCSys_Database):
             self.natl = self.d1[self.UUID][4]
         if self.occp is None or self.occp == '':
             self.occp = self.d1[self.UUID][5]
-        if self.rsv1 is None or self.rsv1 == '':
-            self.rsv1 = self.d1[self.UUID][6]
-        specified = [self.name, self.addr, self.contno, self.bday, self.natl, self.occp, self.rsv1]
+        specified = [self.name, self.addr, self.contno, self.bday, self.natl, self.occp]
         for i in specified:
-            self.w_addrecord(self.d1, self.UUID, self.counter, i)
+            self.w_addrecord(self.d1, self.UUID, i)
             self.counter += 1
         self.counter = 0
 
@@ -104,11 +191,12 @@ class Protocol(IDCSys_Database):
                     print("Nationality confirmed.")
                 elif self.counter == 5:
                     print("Occupation confirmed.")
-                elif self.counter == 6:
-                    print("RESERVED confirmed.")
                 self.counter += 1
         self.counter = 0
-        self.f_dump_dx(self.d1)
+        self.f_dump_d1(self.d1)
+        self.f_dump_d2(self.d2)
+        self.f_dump_d3(self.d3)
+        self.f_dump_d4(self.d4)
         print("\033[95mThe above data were successfully recorded in the database.\033[0m")
         input("\033[95mPlease press any key to continue.\033[0m")
         pass

@@ -7,6 +7,7 @@ import IDCSys_Protocol_ModifyRecord
 import IDCSys_Protocol_RegUser
 import IDCSys_Protocol_Find_Auto
 import IDCSys_Protocol_Find_Manual
+import IDCSys_Protocol_ShowUsers
 from IDCSys_Database import IDCSys_Database
 
 
@@ -33,9 +34,10 @@ class IDCSys_Core(IDCSys_Database):
             "quit": self.quit,
         }
         self.menu_map_admin = {
-            "logout": self.logout,
-            "reg": self.reg,
-            "back": self.back,
+            "1": self.logout,
+            "2": self.dispusr,
+            "3": self.reg,
+            "4": self.back,
         }
         
     def is_permitted(self, permission):
@@ -57,9 +59,10 @@ class IDCSys_Core(IDCSys_Database):
         
     def admin(self):
         print("""
-\t\033[95mlogout\t\033[0mLogout
-\t\033[95mreg  \t\033[0mRegister new user
-\t\033[95mback\t\033[0mGo Back
+\t\033[95m1\t\033[0mLogout
+\t\033[95m2  \t\033[0mDisplay user accounts
+\t\033[95m3  \t\033[0mRegister new user
+\t\033[95m4\t\033[0mGo Back
                           """)
         answer = input("Please enter a command: ").lower()
         try:
@@ -79,7 +82,6 @@ class IDCSys_Core(IDCSys_Database):
         while not self.logged_in:
             username = input("Username: ")
             password = input("Password: ")
-            print(username)
             if username == "DEMO" or username == "":
                 print("Demonstration Mode. Auto logged-in with full Administration\n"
                       "rights.")
@@ -102,6 +104,12 @@ class IDCSys_Core(IDCSys_Database):
         print("You have just logged out.")
         input("Press any key to continue.")
         pass
+        
+    def dispusr(self):
+        if self.is_permitted(b"Read"):
+            IDCSys_Protocol_ShowUsers.Protocol.menu(IDCSys_Protocol_ShowUsers.Protocol())
+        else:
+            print(f"Access Denied.")
         
     def reg(self):
         if self.is_permitted(b"Write"):
