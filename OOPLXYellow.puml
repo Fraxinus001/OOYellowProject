@@ -5,31 +5,31 @@ skinparam classAttributeIconSize 0
 skinparam classFontStyle bold
 hide empty members
 hide empty methods
-title "RFID Identification System"
+title "ID Centralization System"
 
-class "RFIDSys_Encode"
-package "RFID Identification System"{
-RFIDSys_Encode -- "RFIDSys_Database"
-class "RFIDSys_Database" << rfidsys_db >>
-RFIDSys_Database : +active_database
-class "RFIDSys_Decode" << rfidsys_decode >>
-RFIDSys_Database -- RFIDSys_Decode
-RFIDSys_Decode : +decode_encryption: card_data
-class "RFIDSys_Acquire" << rfidsys_core >>
-RFIDSys_Decode -- RFIDSys_Acquire
-RFIDSys_Acquire : +database_search(): decoded_card_data
-RFIDSys_Acquire : +get_from_database(name,age)
-RFIDSys_Acquire : +get_from_database(name,address)
-RFIDSys_Acquire : +get_from_database(name,birth_date)
-RFIDSys_Acquire : +get_from_database(name,contact_number)
-RFIDSys_Acquire : +get_from_database(name,blood_type)
-RFIDSys_Acquire : +get_from_database(name,nationality)
+class "IDCSys_Encode"
+package "ID Centralization System"{
+IDCSys_Encode -- "IDCSys_Database"
+class "IDCSys_Database" << idcsys_db >>
+IDCSys_Database : +active_database
+class "IDCSys_Decode" << idcsys_decode >>
+IDCSys_Database -- IDCSys_Decode
+IDCSys_Decode : +decode_encryption: card_data
+class "IDCSys_Acquire" << idcsys_core >>
+IDCSys_Decode -- RFIDSys_Acquire
+IDCSys_Acquire : +database_search(): decoded_card_data
+IDCSys_Acquire : +get_from_database(name,age)
+IDCSys_Acquire : +get_from_database(name,address)
+IDCSys_Acquire : +get_from_database(name,birth_date)
+IDCSys_Acquire : +get_from_database(name,contact_number)
+IDCSys_Acquire : +get_from_database(name,blood_type)
+IDCSys_Acquire : +get_from_database(name,nationality)
 }
 
-RFIDSys_Acquire "1"--"*" API
-class "API" << rfidsys_menu >>
+IDCSys_Acquire "1"--"*" API
+class "API" << idcsys_menu >>
 API : +main_program
-API : +receive_data_from_RFIDSys()
+API : +receive_data_from_IDCSys()
 API : +display_data_to_user()
 
 @enduml
