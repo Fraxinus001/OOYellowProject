@@ -8,7 +8,7 @@ import AES256_synth
 class IDCSys_Database:
     def __init__(self):
         # For DEMO purposes, update this everytime is reset:
-        self.UUID_DEMO = b'Pkii6kPFpyG/BeMwD1PL6zee2uQpzwDRTsKWBmjesr5igTXosyrt/QeGrjAl/RfyFKbJ9UoQm0tNXJaP9D7LbA=='
+        self.UUID_DEMO = b'45NJ3DYobwppMsvkdeppAtF974NXWhs7Y9/LHRDoXU1f7R7jSTaBW4vCx55K4roVeNlKxn740Ac38PhBvFxfgg=='
 
         self.serialk = "0000-00000-000"
         self.dat001 = self.readmode("dat001.db")
@@ -50,10 +50,16 @@ class IDCSys_Database:
         return S
     
     def w_addrecord(self, dx, a, y):
+        list = []
         for key in dict(dx):
-            if key == a:
-                dx[a].append(y)
-                
+            list.append(key)
+        if a in list:
+            dx[a].append(y)
+        if a not in list:
+            di = {a: []}
+            dx.update(di)
+            dx[a].append(y)
+            
     def w_addreg(self, dx, key, val):
         dx[key] = val
     

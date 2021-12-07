@@ -158,6 +158,10 @@ class Protocol(IDCSys_Database):
             print("The UUID has been generated. Please take note of this for the Registrant.")
             print(f"{UUID}")
         ask = input("DEMO: Confimation, input DEMO to continue: ")
+        d1 = {}
+        d2 = {}
+        d3 = {}
+        d4 = {}
         if ask == "DEMO":
             a = self.KeyEncrypt("Tale, Francis, Sales")
             b = self.KeyEncrypt("Blk. 8 Lt. 36 Ph. 3 Isabel Terraces Metro Manila Hills, San Jose, Rodriguez, Rizal | ZIP:1860")
