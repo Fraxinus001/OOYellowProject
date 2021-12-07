@@ -6,6 +6,7 @@ import IDCSys_Protocol_NewRecord
 import IDCSys_Protocol_ModifyRecord
 import IDCSys_Protocol_RegUser
 import IDCSys_Protocol_Find_Auto
+import IDCSys_Protocol_Find_Manual
 from IDCSys_Database import IDCSys_Database
 
 
@@ -118,7 +119,7 @@ class IDCSys_Core(IDCSys_Database):
     # Find
     def find(self):
         if self.is_permitted(b"Read"):
-            print()
+            IDCSys_Protocol_Find_Manual.Protocol.menu(IDCSys_Protocol_Find_Manual.Protocol())
         else:
             print(f"Access Denied.")
             
