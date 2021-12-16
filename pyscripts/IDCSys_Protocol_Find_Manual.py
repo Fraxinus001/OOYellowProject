@@ -17,7 +17,9 @@ class Protocol(IDCSys_Database):
         LN = input("Please input the registrant's Last Name: ")
         self.name = LN + ", " + FN + ", " + MN
         try:
+            list_all = []
             for i in self.d1:
+                list_all.append(self.KeyDecrypt_utf(self.d1[i][0]))
                 if self.KeyDecrypt_utf(self.d1[i][0]) == self.name:
                     print(f"\033[95mUUID: \033[0m{i}")
                     print(f"\033[95mName: \033[0m{self.KeyDecrypt_utf(self.d1[i][0])}")
@@ -41,6 +43,8 @@ class Protocol(IDCSys_Database):
                     print(f"\033[95m[TAX Data] \033[0m")
                     print(f"\033[95mTIN: \033[0m{self.KeyDecrypt_utf(self.d4[i][0])}")
                     print(f"\033[95mCedula: \033[0m{self.KeyDecrypt_utf(self.d4[i][1])}")
+                if self.name not in list_all:
+                    print("Registrant was not found in the database.")
         except IndexError:
             print("Registrant was not found in the database.")
         input("\033[95mPlease press any key to continue.\033[0m\n")

@@ -46,29 +46,25 @@ class Protocol(IDCSys_Database):
         if R == "yes":
             for i in self.dA2:
                 if self.KeyDecrypt_byt(i) == b'Read':
-                    self.dA2[i].add(username)
-                    self.dA2[i].update()
+                    self.dA2[i].insert(-1, username)
         else:
             pass
         if W == "yes":
             for i in self.dA2:
                 if self.KeyDecrypt_byt(i) == b'Write':
-                    self.dA2[i].add(username)
-                    self.dA2[i].update()
+                    self.dA2[i].insert(-1, username)
         else:
             pass
         if M == "yes":
             for i in self.dA2:
                 if self.KeyDecrypt_byt(i) == b'Modify':
-                    self.dA2[i].add(username)
-                    self.dA2[i].update()
+                    self.dA2[i].insert(-1, username)
         else:
             pass
         if D == "yes":
             for i in self.dA2:
                 if self.KeyDecrypt_byt(i) == b'Delete':
-                    self.dA2[i].add(username)
-                    self.dA2[i].update()
+                    self.dA2[i].insert(-1, username)
         else:
             pass
         

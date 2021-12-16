@@ -225,5 +225,4 @@ class Protocol(IDCSys_Database):
                     print("{} is not a valid option".format(answer))
                 else:
                     func()
-
         

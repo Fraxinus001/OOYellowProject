@@ -26,9 +26,9 @@ class Protocol(IDCSys_Database):
         IDCSys_Core.IDCSys_Core().login()
         input("Please press any key to continue.")
         print("\033[95mAuthorization:\033[0m")
-        FN = input("Please input the registrant's First Name: ")
-        MN = input("Please input the registrant's Middle Name: ")
-        LN = input("Please input the registrant's Last Name: ")
+        FN = input("Please input the user's First Name: ")
+        MN = input("Please input the user's Middle Name: ")
+        LN = input("Please input the user's Last Name: ")
         self.name = LN + ", " + FN + ", " + MN
         ans = None
         try:
