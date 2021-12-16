@@ -43,8 +43,6 @@ class Protocol(IDCSys_Database):
                     print(f"\033[95m[TAX Data] \033[0m")
                     print(f"\033[95mTIN: \033[0m{self.KeyDecrypt_utf(self.d4[i][0])}")
                     print(f"\033[95mCedula: \033[0m{self.KeyDecrypt_utf(self.d4[i][1])}")
-                if self.name not in list_all:
-                    print("Registrant was not found in the database.")
         except IndexError:
             print("Registrant was not found in the database.")
         input("\033[95mPlease press any key to continue.\033[0m\n")
