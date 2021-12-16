@@ -8,7 +8,7 @@ import AES256_synth
 class IDCSys_Database:
     def __init__(self):
         # For DEMO purposes, update this everytime is reset:
-        self.UUID_DEMO = b'ulLbkB+16haTlO2R81F3q5Y3lMjbCTEaFR54U97R1eIp12PaFOucvEN3a//R9JpLf5LpYNXYQV8jDQaFw1UAxg=='
+        self.UUID_DEMO = b'aHPhIcqFhJfosCQ2hAiGVyGku8CxXwyDtueve5rppK8N4Sde3Ale5VOq47tHTD+oia0dSSvZIyy8plCxVX1dCg=='
 
         self.serialk = "0000-00000-000"
         self.dat001 = self.readmode("dat001.db")
@@ -182,4 +182,4 @@ class IDCSys_Database_Reset(IDCSys_Database):
         
 
 # if __name__ == '__main__':
- # IDCSys_Database_Reset().execwrite()
+    # IDCSys_Database_Reset().execwrite()

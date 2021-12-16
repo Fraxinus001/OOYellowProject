@@ -5,6 +5,7 @@ from IDCSys_Database import IDCSys_Database
 class Protocol(IDCSys_Database):
     def __init__(self):
         super().__init__()
+        self.username = None
         self.dat0A1 = self.readmode("dat0A1.db")
         self.dat0A2 = self.readmode("dat0A2.db")
         self.dat0A3 = self.readmode("dat0A3.db")
@@ -19,7 +20,14 @@ class Protocol(IDCSys_Database):
     
     @staticmethod
     def q_password():
-        password = input("Please input the registrant's Password: ")
+        password = None
+        switch = 0
+        while switch == 0:
+            password = input("Please input the registrant's Password: ")
+            if len(password) < 6:
+                print("Password too short. Must not be less than 6 characters.")
+            else:
+                switch = 1
         return password
 
     @staticmethod
@@ -95,6 +103,7 @@ class Protocol(IDCSys_Database):
         IDCSys_Core.IDCSys_Core().login()
         input("Please press any key to continue.")
         a = self.KeyEncrypt(self.q_username())
+        self.username = a
         b = self.KeyEncrypt(self.q_password())
         c = self.KeyEncrypt(self.q_name())
         self.q_perms(a)
@@ -122,5 +131,4 @@ class Protocol(IDCSys_Database):
         else:
             pass
         input("\033[95mPlease press any key to continue.\033[0m")
-
         

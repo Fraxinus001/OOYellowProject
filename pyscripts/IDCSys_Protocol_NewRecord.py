@@ -156,7 +156,6 @@ class Protocol(IDCSys_Database):
         elif UUID == "yes":
             self.DateTimeNow = datetime.datetime.today().strftime("%B %d, %Y - %I:%M:%S%p")
             UUID = AES256_synth.KeyEncrypt(self.DateTimeNow).KeyEncrypt()
-            self.d1.update({UUID: []})
             print("The UUID has been generated. Please take note of this for the Registrant.")
             print(f"{UUID}")
         # For Demonstration: Ask for confirmation
