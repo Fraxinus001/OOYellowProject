@@ -177,10 +177,10 @@ class IDCSys_Authorizor_BuildDB(IDCSys_Database):
                 self.enc_ta: self.KeyEncrypt('12345@sae2')}
     
     def template_b(self):
-        return {self.KeyEncrypt('Read'): {self.enc_ty, self.enc_ta},
-                self.KeyEncrypt('Write'): {self.enc_ty, self.enc_ta},
-                self.KeyEncrypt('Delete'): {self.enc_ty, self.enc_ta},
-                self.KeyEncrypt('Modify'): {self.enc_ty, self.enc_ta}}
+        return {self.KeyEncrypt('Read'): [self.enc_ty, self.enc_ta],
+                self.KeyEncrypt('Write'): [self.enc_ty, self.enc_ta],
+                self.KeyEncrypt('Delete'): [self.enc_ty, self.enc_ta],
+                self.KeyEncrypt('Modify'): [self.enc_ty, self.enc_ta]}
     
     def template_c(self):
         return {self.enc_ty: self.KeyEncrypt('Ty, Dominic Edward, Garchitorena'),

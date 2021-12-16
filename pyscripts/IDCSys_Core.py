@@ -4,10 +4,12 @@ import IDCSys_Authorizor
 import IDCSys_Protocol_NewRecord
 import IDCSys_Protocol_ModifyRecord
 import IDCSys_Protocol_RegUser
+import IDCSys_Protocol_DelUser
 import IDCSys_Protocol_Find_Auto
 import IDCSys_Protocol_Find_Manual
 import IDCSys_Protocol_ShowUsers
 from IDCSys_Database import IDCSys_Database
+
 
 # Main Menu class for our Program.
 class IDCSys_Core(IDCSys_Database):
@@ -35,7 +37,8 @@ class IDCSys_Core(IDCSys_Database):
             "1": self.logout,
             "2": self.dispusr,
             "3": self.reg,
-            "4": self.back,
+            "4": self.del_user,
+            "5": self.back,
         }
         
     # Function call for login permission checks.
@@ -62,7 +65,8 @@ class IDCSys_Core(IDCSys_Database):
 \t\033[95m1\t\033[0mLogout
 \t\033[95m2  \t\033[0mDisplay user accounts
 \t\033[95m3  \t\033[0mRegister new user
-\t\033[95m4\t\033[0mGo Back
+\t\033[95m4  \t\033[0mDelete user
+\t\033[95m5\t\033[0mGo Back
                           """)
         answer = input("Please enter a command: ").lower()
         try:
@@ -84,8 +88,6 @@ class IDCSys_Core(IDCSys_Database):
             username = input("Username: ")
             password = input("Password: ")
             if username == "DEMO" or username == "":
-                print("Demonstration Mode. Auto logged-in with full Administration\n"
-                      "rights.")
                 username = "fstale@idcsys.com"
                 password = "12345@sae2"
             try:
@@ -96,6 +98,9 @@ class IDCSys_Core(IDCSys_Database):
                 print("Sorry, incorrect password")
             else:
                 self.username = username
+            if username == "fstale@idcsys.com" and self.logged_in is True:
+                print("Demonstration Mode. Auto logged-in with full Administration\n"
+                      "rights.")
 
     # Function call for Logout
     def logout(self):
@@ -118,6 +123,12 @@ class IDCSys_Core(IDCSys_Database):
     def reg(self):
         if self.is_permitted(b"Write"):
             IDCSys_Protocol_RegUser.Protocol().menu()
+        else:
+            print(f"Access Denied.")
+            
+    def del_user(self):
+        if self.is_permitted(b"Delete"):
+            IDCSys_Protocol_DelUser.Protocol().menu()
         else:
             print(f"Access Denied.")
         
