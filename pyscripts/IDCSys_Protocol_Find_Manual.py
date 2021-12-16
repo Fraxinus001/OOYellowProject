@@ -7,7 +7,7 @@ class Protocol(IDCSys_Database):
         self.name = ''
     
     def menu(self):
-        print("\033[95mFind records (automated)\033[0m\n"
+        print("\033[95mFind records (Manual)\033[0m\n"
               "You are hereby will be authorized to view existing records")
         input("\033[95mPlease press any key to continue.\033[0m\n")
         print("Demonstration Mode.")

@@ -1,4 +1,7 @@
 # ID Centralization System
+# Prerequisites: pip install pycryptodomex
+# Prerequisites: pip install cryptography
+# install in Pycharm File -> Settings -> Project -> Python Interpreter
 
 import IDCSys_Authorizor
 import IDCSys_Protocol_NewRecord

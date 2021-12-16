@@ -205,24 +205,27 @@ class Protocol(IDCSys_Database):
         if self.UUID == self.UUID_DEMO:
             print(f"DEMO: UUID {self.UUID_DEMO} loaded!")
             print("Demonstration Mode.")
-            while True:
-                if self.goback is True:
-                    break
-                print(f"""
-    \t\033[95m1 \t\033[0mChange Name
-    \t\033[95m2 \t\033[0mChange Address
-    \t\033[95m3 \t\033[0mChange Contact No.
-    \t\033[95m4 \t\033[0mChange Birthday
-    \t\033[95m5 \t\033[0mNationality
-    \t\033[95m6\t\033[0mOccupation
-    \t\033[95m7\t\033[0mFinalize
-    \t\033[95m8\t\033[0mGo Back
-                                  """)
-                answer = input("Please enter a command: ").lower()
-                try:
-                    func = self.menu_map[answer]
-                except KeyError:
-                    print("{} is not a valid option".format(answer))
-                else:
-                    func()
+        else:
+            pass
+        while True:
+            if self.goback is True:
+                break
+            print(f"""
+\t\033[95m1 \t\033[0mChange Name
+\t\033[95m2 \t\033[0mChange Address
+\t\033[95m3 \t\033[0mChange Contact No.
+\t\033[95m4 \t\033[0mChange Birthday
+\t\033[95m5 \t\033[0mNationality
+\t\033[95m6\t\033[0mOccupation
+\t\033[95m7\t\033[0mFinalize
+\t\033[95m8\t\033[0mGo Back
+                              """)
+            answer = input("Please enter a command: ").lower()
+            try:
+                func = self.menu_map[answer]
+            except KeyError:
+                print("{} is not a valid option".format(answer))
+            else:
+                func()
+        
         

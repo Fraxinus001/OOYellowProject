@@ -4,7 +4,6 @@ import AES256_encrypt
 import AES256_decrypt
 import pickle
 import base64
-from cryptography.fernet import Fernet as fernet
 
 class AES256_synth:
     def __init__(self, AccessKey):
