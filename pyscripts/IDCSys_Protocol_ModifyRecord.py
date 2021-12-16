@@ -201,7 +201,7 @@ class Protocol(IDCSys_Database):
         print("Demonstration Mode.")
         print("\033[95mAuthorization:\033[0m")
 
-        self.UUID = input("Please input the existing registrant's UUID: ") or self.UUID_DEMO
+        self.UUID = bytes(input("Please input the existing registrant's UUID: "), 'utf-8') or self.UUID_DEMO
         if self.UUID == self.UUID_DEMO:
             print(f"DEMO: UUID {self.UUID_DEMO} loaded!")
             print("Demonstration Mode.")
