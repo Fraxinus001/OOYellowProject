@@ -17,9 +17,7 @@ class Protocol(IDCSys_Database):
         LN = input("Please input the registrant's Last Name: ")
         self.name = LN + ", " + FN + ", " + MN
         try:
-            list_all = []
             for i in self.d1:
-                list_all.append(self.KeyDecrypt_utf(self.d1[i][0]))
                 if self.KeyDecrypt_utf(self.d1[i][0]) == self.name:
                     print(f"\033[95mUUID: \033[0m{i}")
                     print(f"\033[95mName: \033[0m{self.KeyDecrypt_utf(self.d1[i][0])}")

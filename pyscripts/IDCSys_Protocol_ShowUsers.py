@@ -20,7 +20,7 @@ class Protocol(IDCSys_Database):
         return username
     
     def menu(self):
-        print("\033[95mAdministration: Delete user account\033[0m")
+        print("\033[95mAdministration: Display user account\033[0m")
         print("Please login again to continue.")
         IDCSys_Core.IDCSys_Core().logged_in = False
         IDCSys_Core.IDCSys_Core().login()
