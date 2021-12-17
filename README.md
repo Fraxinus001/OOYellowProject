@@ -3,7 +3,11 @@
 
 ## The project is to create a ID Centralization System using Object-Oriented Programming in Python Programming Language. ##
 
+### Trello Link: ###
 https://trello.com/b/L9hJSpaU/oo1lxyellow
+
+### Usage Demonstration Video: ###
+https://www.youtube.com/watch?v=rP62wlwFylM
 
 ### Contributors: ###
 * Francis Tale
