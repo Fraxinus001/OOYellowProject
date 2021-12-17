@@ -3,12 +3,6 @@
 
 ## The project is to create a ID Centralization System using Object-Oriented Programming in Python Programming Language. ##
 
-### Trello Link: ###
-https://trello.com/b/L9hJSpaU/oo1lxyellow
-
-### Usage Demonstration Video: ###
-https://www.youtube.com/watch?v=rP62wlwFylM
-
 ### Contributors: ###
 * Francis Tale
 * Dominic Edward Ty
@@ -26,3 +20,9 @@ Where would OOP fit in?
 * Every individual (Ex. Engineers, Businessmen, Doctors, Teachers, etc.) will have their specified attributes (SSS, GSIS, Benefits and Insurance, Licenses, Passports, Barangay IDs, NBI IDs etc.)
 * The Program may generate unique IDs for use in certain licenses, and may be based and generated using the access key (unique ID) of the individual.
 * Datas for every individual are centralized
+
+### Trello Link: ###
+https://trello.com/b/L9hJSpaU/oo1lxyellow
+
+### Usage Demonstration Video: ###
+https://www.youtube.com/watch?v=rP62wlwFylM
