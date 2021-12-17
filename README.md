@@ -22,5 +22,5 @@ Where would OOP fit in?
 * Datas for every individual are centralized
 
 ### Links: ###
-[Trello Board](https://trello.com/b/L9hJSpaU/oo1lxyellow "Trello Board")
-[Usage Demonstration Video](https://www.youtube.com/watch?v=rP62wlwFylM "YouTube Demo")
+1. [Trello Board](https://trello.com/b/L9hJSpaU/oo1lxyellow "Trello Board")
+2. [Usage Demonstration Video](https://www.youtube.com/watch?v=rP62wlwFylM "YouTube Demo")
