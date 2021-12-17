@@ -21,8 +21,6 @@ Where would OOP fit in?
 * The Program may generate unique IDs for use in certain licenses, and may be based and generated using the access key (unique ID) of the individual.
 * Datas for every individual are centralized
 
-### Trello Link: ###
-https://trello.com/b/L9hJSpaU/oo1lxyellow
-
-### Usage Demonstration Video: ###
-https://www.youtube.com/watch?v=rP62wlwFylM
+### Links: ###
+[Trello Board](https://trello.com/b/L9hJSpaU/oo1lxyellow "Trello Board")
+[Usage Demonstration Video](https://www.youtube.com/watch?v=rP62wlwFylM "YouTube Demo")
